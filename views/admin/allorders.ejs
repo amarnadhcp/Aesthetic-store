@@ -1,0 +1,210 @@
+<%- include('../layouts/admin/header.ejs') %>
+
+
+
+
+  <!-- Layout wrapper -->
+  <div class="layout-wrapper layout-content-navbar">
+    <div class="layout-container">
+      <!-- Menu -->
+      <%- include('../layouts/admin/sidebar.ejs') %>
+
+        <!-- / Menu -->
+
+        <!-- Layout container -->
+        <div class="layout-page">
+          <!-- Navbar -->
+
+          <%- include('../layouts/admin/navbar.ejs') %>
+
+
+            <br>
+            <br>
+
+            <br>
+            <!-- <div>
+              <a href="/admin/banner/addbanner">
+                   <button type="button" class="btn btn -xl btn-primary mb-3">ADD BANNER</button>
+               </a>
+           </div> -->
+
+
+
+            <!-- text-nowrap ===== to make table down scroller -->
+
+            <div class="card">
+              <h5 class="card-header">All Banners</h5>
+              <div class="table-responsive ">
+                <table class="table">
+                  <thead>
+                    <tr>
+                      <th>No</th>
+                      <th>Order Id</th>
+                      <th>Address</th>
+                      <th>payment </th>
+                      <th>status</th>
+                      <!-- <th>Details</th> -->
+                    </tr>
+                  </thead>
+
+                  <% orderData.forEach((x,index)=>{%>
+
+
+
+                    <tbody class="table-border-bottom-0">
+                      <tr>
+                        <th scope="row">
+                          <%= index+1 %>
+                        </th>
+
+                        <th scope="row">
+                          <%= x.orderId %>
+                        </th>
+
+                        <th scope="row">
+                          <%= x.deliveryAddress %>
+                        </th>
+
+                        <th scope="row">
+                          <%= x.payementType%>
+                        </th>
+
+                        <% if (x.status=="delivered" || x.status=="cancelled" || x.status == "Returned" ||  x.status == "Payment failed" ) { %>
+                          <th>
+                              <%= x.status %>
+                          </th>
+                      <% } else if (x.status=="confirmed") { %>
+                          <th>
+                              <div class="dropdown">
+                                  <button type="button"  class="btn p-10 dropdown-toggle hide-arrow btn-outline-danger text-red "
+                                          data-bs-toggle="dropdown">
+                                      <i>
+                                          <%= x.status %>
+                                      </i>
+                                  </button>
+                                  <div class="dropdown-menu ">
+                                      <div class="dropdown-item" onclick="updateStatus('<%= x.orderId %>', 'processing')">
+                                          <i class="me-1"></i> Processing
+                                      </div>
+                                      <a class="dropdown-item" onclick="updateStatus('<%= x.orderId %>', 'shipped')">
+                                          <i class="me-1"></i> Shipped
+                                      </a>
+                                      <a class="dropdown-item" onclick="updateStatus('<%= x.orderId%>', 'delivered')">
+                                          <i class="me-1"></i> Delivered
+                                      </a>
+                                  </div>
+                              </div>
+                          </th>
+                      <% } else if (x.status=="processing") { %>
+                          <th>
+                              <div class="dropdown">
+                                  <button type="button"   class="btn p-10 dropdown-toggle hide-arrow btn-outline-danger text-red "
+                                          data-bs-toggle="dropdown">
+                                      <i>
+                                          <%= x.status %>
+                                      </i>
+                                  </button>
+                                  <div class="dropdown-menu">
+                                      <a class="dropdown-item" onclick="updateStatus('<%= x.orderId %>', 'shipped')">
+                                          <i class="me-1"></i> Shipped
+                                      </a>
+                                      <a class="dropdown-item" onclick="updateStatus('<%= x.orderId %>', 'delivered')">
+                                          <i class="me-1"></i> Delivered
+                                      </a>
+                                  </div>
+                              </div>
+                          </th>
+                      <% } else if (x.status=="shipped") { %>
+                          <th>
+                              <div class="dropdown">
+                                  <button type="button"  class="btn p-10 dropdown-toggle hide-arrow  btn-outline-danger text-red"
+                                          data-bs-toggle="dropdown">
+                                      <i>
+                                          <%= x.status %>
+                                      </i>
+                                  </button>
+                                  <div class="dropdown-menu">
+                                      <a class="dropdown-item" onclick="updateStatus('<%= x.orderId %>', 'delivered')">
+                                          <i class="me-1"></i> Delivered
+                                      </a>
+                                  </div>
+                              </div>
+                          </th>
+                       <% } else if (x.status=="Return pending") { %>
+                        <th>
+                            <div class="dropdown">
+                                <button type="button"  class="btn p-0 dropdown-toggle hide-arrow btn-outline-danger text-red"
+                                        data-bs-toggle="dropdown">
+                                    <i>
+                                        <%= x.status %>
+                                    </i>
+                                </button>
+                                <div class="dropdown-menu">
+                                    <a class="dropdown-item" onclick="updateStatus('<%= x.orderId %>', 'Returned')">
+                                        <i class="me-1"></i> Approve
+                                    </a>
+                                </div>
+                            </div>
+                        </th>
+                    <% } %> 
+                      
+
+                   
+
+
+                                <!-- <th scope="row"> details</th> -->
+
+                      </tr>
+                    </tbody>
+                    <% }) %>
+                </table>
+              </div>
+            </div>
+
+            <div>
+              <% if(typeof message!=="undefined" ){%>
+                <h1 style="font-size:16px;color:rgb(73, 34, 227);">
+                  <%=message %>
+                </h1>
+                           <%}%>
+            </div>
+
+            
+
+
+            <script>
+              function  updateStatus(orderId, newstatus){
+
+                $.ajax ({
+                  url: "/admin/statusupdation",
+                  data: {
+                    orderid: orderId,
+                    status: newstatus
+                  },
+                  method: "post",
+
+                  success: (response) => {
+                    if(response.success){
+                      console.log("it worked");
+                    }
+                
+                    location.href="/admin/orders"
+                  }
+                })
+              }
+        
+              </script>
+
+
+
+
+            <%- include('../layouts/admin/footer.ejs') %>
+
+              <!-- <td>
+                        <td>  
+                          <button type="button" class="btn btn-danger" ><a  class="text-white" href="/admin/deletebanner">delete</a></button>
+                     </td> 
+                      </td> -->
+
+
+

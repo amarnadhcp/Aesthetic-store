@@ -1,0 +1,103 @@
+<%- include('../layouts/admin/header.ejs') %>
+
+
+
+
+    <!-- Layout wrapper -->
+    <div class="layout-wrapper layout-content-navbar">
+      <div class="layout-container">
+        <!-- Menu -->
+        <%- include('../layouts/admin/sidebar.ejs') %>
+
+        <!-- / Menu -->
+
+        <!-- Layout container -->
+        <div class="layout-page">
+          <!-- Navbar -->
+
+          <%- include('../layouts/admin/navbar.ejs') %>
+
+
+<br>
+<br>
+ 
+<!-- <br>
+           <div>
+              <a href="/admin/allproducts/addcategory">
+                   <button type="button" class="btn btn -xl btn-primary mb-3">ADD CATEGORY</button>
+               </a>
+           </div>
+         -->
+            
+           
+    
+          <div class="card">
+            <h5 class="card-header">Table Basic</h5>
+            <div class="table-responsive text-nowrap">
+              <table class="table">
+                <thead>
+                  <tr>
+                    <th>No</th>
+                    <th>name</th>
+                    <th>email</th>
+                    <th>mobile number</th>
+                    <th>status</th>
+                    <th>Action</th>
+                     <!-- <th>Image</th> -->
+                    <!-- <th>Action</th> -->
+                   
+                  </tr>
+                </thead>
+               
+                <tbody class="table-border-bottom-0">
+                    
+        <%  userDatas.forEach((x,index)=>{%> 
+
+            <tr>
+
+                <td><%= index+1 %></td>
+                <td><%= x.username %></td>
+                <td><%= x.email %></td>
+                <td><%= x.mobilenumber %></td>
+    <!-- /////////////status showing//////////////////////////// -->
+                <% if(x.status){ %>
+                  <td><span class="badge bg-success">Active</span></td>
+                <% }else{ %>
+                  <td><span class="badge bg-danger">DeActive</span></td>
+                <% } %>
+
+
+<!-- /////////////  Active and dective button //////////////////////////// -->
+
+                  <% if(x.status){%>
+                    <% console.log(x.status); %>
+
+                    
+                <td>                       
+                    <button type="button" class="btn btn-danger" ><a  class="text-white" href="/admin/useractive/<%=x._id%>">Block</a></button>               
+               </td> 
+                  <% }else{ %>
+
+               <td>  
+                    <button type="button" class="btn btn-success" ><a  class="text-white" href="/admin/useractive/<%=x._id%>">UnBlock</a></button>
+               </td> 
+                    <% }%>
+
+            </tr>
+          
+        <% }); %>
+      
+
+                </tbody>
+              </table>
+            </div>
+          </div>
+
+          <div>
+            <% if(typeof message!=="undefined"){%>
+              <h1 style ="font-size:16px;color:rgb(73, 34, 227);"><%=message %></h1>
+              <%}%>
+          </div>
+
+
+    <%- include('../layouts/admin/footer.ejs') %>

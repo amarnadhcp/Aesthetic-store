@@ -1,0 +1,106 @@
+<%- include('../layouts/user/header.ejs') %>
+    <%- include('../layouts/user/navbar.ejs') %>
+
+        <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"
+            integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN"
+            crossorigin="anonymous"></script>
+
+        <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.13.1/css/jquery.dataTables.css">
+
+        <script type="text/javascript" charset="utf8"
+            src="https://cdn.datatables.net/1.13.1/js/jquery.dataTables.js"></script>
+
+
+
+        <!-- Include Bootstrap CSS -->
+        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css"
+            integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+
+        <!-- Begin Page Content -->
+        <main class="container my-5 ">
+            <div class="row ">
+                <div class="col ">
+                    <h1 class="fw-bold"></h1>
+                    <hr>
+                </div>
+            </div>
+
+
+            <div class="row">
+                <div class="col">
+                    <table class="table table-hover border rounded shadow" id="reloadDiv">
+                        <thead class="bg-light">
+                            <tr>
+                                <th scope="col">NO</th>
+                          
+                                <th scope="col">Date</th>
+                                <th scope="col">payment type</th>
+                                <th scope="col">Total Amount</th>
+                                <th scope="col">Status</th>
+                                <!-- <th scope="col">Action</th> -->
+                                <!-- <th scope="col">Detail</th> -->
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <% orderData.forEach((order, index)=> { %>
+                                <tr>
+                                    <th scope="row">
+                                        <%= index + 1 %>
+                                    </th>
+                                    <!-- <td>
+                                        <% order.product.forEach((product)=> { %>
+                                            <p class="fw-normal mb-1">
+                                                <%= product.productId.name %>
+                                            </p>
+                                            <% }) %>
+                                    </td> -->
+                                    <td>
+                                        <%= order.date.toLocaleString('en-us', { day: '2-digit' , month: '2-digit' ,
+                                            year: '2-digit' }) %>
+                                    </td>
+                                    <td>
+                                        <%= order.payementType %>
+                                    </td>
+                                    <td>
+                                        <%= order.total %>
+                                    </td>
+                                    <td>
+                                        <%= order.status %>
+                                    </td>
+
+
+                       
+                           <% }) %>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </main>
+        <!-- End Page Content -->
+
+        <!-- Include Bootstrap JS -->
+        <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"
+            integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN"
+            crossorigin="anonymous"></script>
+        <script src="https://cdn.jsdelivr.net/npm/popper.js@1.12.9/dist/umd/popper.min.js"
+            integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q"
+            crossorigin="anonymous"></script>
+        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.min.js"
+            integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl"
+            crossorigin="anonymous"></script>
+
+        <%- include('../layouts/user/footer.ejs') %>
+
+
+
+        
+
+
+       
+
+
+            <script>
+                $(document).ready(function () {
+                    $('#reloadDiv').DataTable();
+                });
+            </script>

@@ -1,0 +1,361 @@
+<%- include('../layouts/user/header.ejs') %>
+  <%- include('../layouts/user/navbar.ejs') %>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet"
+      integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+
+
+    <!doctype html>
+    <html lang="en">
+
+    <head>
+      <!-- Required meta tags -->
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+      <!-- Bootstrap CSS -->
+      <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/css/bootstrap.min.css"
+        integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+
+
+    </head>
+
+    <body>
+
+      <section class="" style="margin: 100px; border: 1px black;  ">
+      
+        <button type="button" class="btn btn-outline-success ml-3 mb-2" data-toggle="modal"
+											data-target="#addnew">
+											Add Address
+										</button>
+
+        <table class="table align-middle mb-0 bg-white" id="reloadDiv">
+          <thead class="bg-light">
+            <tr>
+              <th>No</th>
+              <th>Name</th>
+              <th>Address</th>
+              <th>Actions</th>
+              <th></th>
+            </tr>
+          </thead>
+          <tbody>
+            <% userData.address.forEach((x,index)=>{%>
+              <tr>
+
+                <th scope="row">
+                  <%= index+1 %>
+                </th>
+
+                <td>
+                  <p class="fw-normal mb-1">
+                    <%= userData.username %>
+                  </p>
+                </td>
+
+                <td>
+                  <%= x.housename %> , <%= x.street %> , <%= x.district %> , <%= x.state %> , <%=
+                              x.pincode %> , <%= x.country %> , <%= x.phone %>
+                </td>
+
+
+
+                <td>
+                  <button type="button" class="btn btn-danger btn-sm btn-rounded"
+                    onclick="deleteAddress('<%=x._id%>')">remove</button>
+
+                </td>
+
+                <td>
+                  <!-- Button trigger modal -->
+                  <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#<%=x._id%>">
+                    Edit
+                  </button>
+                </td>
+
+       <!-- Modal -->
+       <form action="/editaddress/<%= x._id %>" method="post" >
+
+      <div class="modal fade" id="<%=x._id%>" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+      aria-hidden="true">
+      <div class="modal-dialog" role="document">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title" id="exampleModalLabel">Add new address</h5>
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+              <span aria-hidden="true">&times;</span>
+            </button>
+          </div>
+          <div class="modal-body">
+       
+
+            <div class="row mb-4">
+              <div class="col">
+                <div class="form-outline">
+                  <input type="text" id="form11Example1" class="form-control"  value="<%= x.country %>" name="country" />
+                  <label class="form-label" for="form11Example1"  >Country</label>
+                </div>
+              </div>
+              <div class="col">
+                <div class="form-outline">
+                  <input type="text" id="form11Example2" class="form-control" value="<%= x.state %>" name="state" />
+                  <label class="form-label" for="form11Example2">State</label>
+                </div>
+              </div>
+            </div>
+
+
+            <div class="row mb-4">
+              <div class="col">
+                <div class="form-outline">
+                  <input type="text" id="form11Example1" class="form-control" value="<%= x.district %> " name="district"/>
+                  <label class="form-label" for="form11Example1">District</label>
+                </div>
+              </div>
+              <div class="col">
+                <div class="form-outline">
+                  <input type="text" id="form11Example2" class="form-control" value="<%= x.pincode %> " name="pincode"/>
+                  <label class="form-label" for="form11Example2">pincode</label>
+                </div>
+              </div>
+            </div>
+
+
+            <div class="row mb-4">
+              <div class="col">
+                <div class="form-outline">
+                  <input type="text" id="form11Example1" class="form-control" value="<%= x.housename %>" name="housename"/>
+                  <label class="form-label" for="form11Example1">House name</label>
+                </div>
+              </div>
+              <div class="col">
+                <div class="form-outline">
+                  <input type="text" id="form11Example2" class="form-control" value="<%= x.phone %>" name="phone"/>
+                  <label class="form-label" for="form11Example2">Phone number</label>
+                </div>
+              </div>
+            </div>
+
+            
+
+            <div class="row mb-4">
+              <div class="col">
+                <div class="form-outline">
+                  <input type="text" id="form11Example1" class="form-control"  value="<%= x.street %>"  name="street"/>
+                  <label class="form-label" for="form11Example1">street</label>
+                </div>
+
+
+
+          </div>
+          <div class="modal-footer">
+            
+            <% if(typeof message!=="undefined"){%>
+              <h1 style ="font-size:16px;color:rgb(73, 34, 227);"><%=message%></h1>
+              <%}%>
+              
+            <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+            <button type="submit" class="btn btn-primary">Submit</button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+  </form>
+                <!-- <td>
+           <a href="/editaddress/<%=x._id%>"> <button type="button" class="btn btn-success btn-sm btn-rounded">
+              Edit
+            </button></a>
+         </td> -->
+
+              </tr>
+              <% }) %>
+          </tbody>
+        </table>
+
+      </section>
+
+
+
+
+      <script>
+        function deleteAddress(AddId) {
+          console.log(AddId);
+          Swal.fire({
+
+            title: 'Are you sure?',
+            text: "You wan't to delete!",
+            icon: 'warning',
+            showCancelButton: true,
+            confirmButtonColor: '#3085d6',
+            cancelButtonColor: '#d33',
+            confirmButtonText: 'yes, delete!'
+          }).then((result) => {
+            if (result.isConfirmed) {
+              $.ajax({
+                url: "/deleteaddress",
+                data: {
+                  AddressId: AddId
+                },
+                method: 'post',
+                success: (response) => {
+                  console.log("waoring")
+
+                  $('#reloadDiv').load('/viewaddress #reloadDiv')
+                  console.log(response);
+                  Swal.fire({
+                    title: 'deleted!',
+                    text: 'Your deleted',
+                    icon: 'success',
+                    showConfirmButton: false
+                  })
+                }
+
+              })
+            }
+          })
+        }
+
+      </script>
+
+
+
+  
+
+      <!-- Optional JavaScript -->
+      <!-- jQuery first, then Popper.js, then Bootstrap JS -->
+
+      <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"
+        integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN"
+        crossorigin="anonymous"></script>
+      <script src="https://cdn.jsdelivr.net/npm/popper.js@1.12.9/dist/umd/popper.min.js"
+        integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q"
+        crossorigin="anonymous"></script>
+      <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/js/bootstrap.min.js"
+        integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl"
+        crossorigin="anonymous"></script>
+    </body>
+
+    </html>
+
+
+
+
+
+
+    <%- include('../layouts/user/footer.ejs') %>
+
+
+
+
+    	<!--------------------------------------------mmmmmmmmmmmmmmmmooooooooooooooooooooodddddddddddddaaaaaaaaaaaaaaalllllllllllllllll----------------------------------->
+
+			
+      <div class="modal fade" id="addnew" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+      aria-hidden="true">
+      <div class="modal-dialog" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">Add New Address</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+        </div>
+  <form id="myform" >
+        <div class="modal-body">
+        <div class="row mb-4">
+          <div class="col">
+          <div class="form-group">
+            <label for="country">Country:</label>
+            <input type="text" id="country" class="form-control" name="country" required />
+            <div class="invalid-feedback">
+            Please enter a valid country.
+            </div>
+          </div>
+          </div>
+          <div class="col">
+          <div class="form-group">
+            <label for="state">State:</label>
+            <input type="text" id="state" class="form-control" name="state" required />
+            <div class="invalid-feedback">
+            Please enter a valid state.
+            </div>
+          </div>
+          </div>
+        </div>
+        <div class="row mb-4">
+          <div class="col">
+          <div class="form-group">
+            <label for="district">District:</label>
+            <input type="text" id="district" class="form-control" name="district" required />
+            <div class="invalid-feedback">
+            Please enter a valid district.
+            </div>
+          </div>
+          </div>
+          <div class="col">
+          <div class="form-group">
+            <label for="pincode">Pincode:</label>
+            <input type="text" id="pincode" class="form-control" name="pincode" required pattern="\d{6}" />
+            <div class="invalid-feedback">
+            Please enter a valid 6-digit pincode.
+            </div>
+          </div>
+          </div>
+        </div>
+        <div class="row mb-4">
+          <div class="col">
+          <div class="form-group">
+            <label for="housename">House Name:</label>
+            <input type="text" id="housename" class="form-control" name="housename" />
+          </div>
+          </div>
+          <div class="col">
+          <div class="form-group">
+            <label for="phone">Phone Number:</label>
+            <input type="tel" id="phone" class="form-control" name="phone" required pattern="\d{10}" />
+            <div class="invalid-feedback">
+            Please enter a valid 10-digit phone number.
+            </div>
+          </div>
+          </div>
+        </div>
+        <div class="row mb-4">
+          <div class="col">
+          <div class="form-group">
+            <label for="street">Street:</label>
+            <input type="text" id="street" class="form-control" name="street" />
+          </div>
+          </div>
+        </div>
+    
+          <div class="modal-footer">
+            <% if(typeof message!=="undefined"){ %>
+              <h5 class="text-primary"><%= message %></h5>
+            <% } %>
+            <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+            <button type="submit" class="btn btn-primary" id="submitData">Submit</button>
+          </div>
+        </div>
+      </div>
+    </div>
+</form>
+  
+
+<script>
+  $("#submitData").on('click', function() {
+    var formData = $('#myform').serialize();
+    console.log(formData);
+  
+    $.ajax({
+    url: "/addingAddress",
+    method: "post",
+    data: formData,
+    success: function(response) {
+      console.log(response);
+    },
+    error: function(xhr, status, error) {
+      console.log(error);
+    }
+    });
+  });
+  </script>

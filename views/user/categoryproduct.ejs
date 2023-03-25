@@ -1,0 +1,151 @@
+<%- include('../layouts/user/header.ejs') %>
+<%- include('../layouts/user/navbar.ejs') %>
+
+
+
+
+
+	<!-- Product -->
+	<section class="bg0 p-t-23 p-b-140">
+		<div class="container">
+			
+
+			<div class="flex-w flex-sb-m p-b-52">
+				<div class="flex-w flex-l-m filter-tope-group m-tb-10">
+					
+				</div>
+
+			
+
+				<!-- Search product -->
+				<div class="dis-none panel-search w-full p-t-10 p-b-15">
+					<div class="bor8 dis-flex p-l-15">
+						<button class="size-113 flex-c-m fs-16 cl2 hov-cl1 trans-04">
+							<i class="zmdi zmdi-search"></i>
+						</button>
+
+						<input class="mtext-107 cl2 size-114 plh2 p-r-15" type="text" name="search-product"
+							placeholder="Search">
+					</div>
+				</div>
+
+				
+			</div>
+
+
+
+
+			<div class="bg6 flex-c-m flex-w size-302  p-tb-15"  >
+	
+				<!-- <span class="stext-107 cl6 p-lr-25">
+					 category
+				</span> -->
+				<div class="p-b-10">
+					<h3 class="ltext-103 cl5" style="color: white;">
+					<%= categoryname.category %>
+					</h3>
+				</div>
+			</div>
+
+
+
+			<div class="row isotope-grid mt-10" >
+
+				<% FilterdData.forEach((x)=>{ %>
+
+					<div class="col-sm-6 col-md-4 col-lg-3 p-b-35 isotope-item women mt-4">
+
+						<div class="block2">
+							<div class="block2-pic hov-img0">
+								<img width="200px" height="300px" src=" /productImages/<%= x.image[0] %> "
+									alt="IMG-PRODUCT">
+
+								<a href="/views/<%= x._id %>" type="button"
+									class="block2-btn flex-c-m stext-103 cl2 size-102 bg0 bor2 hov-btn1 p-lr-15 ">
+									Quick View
+								</a>
+							</div>
+
+							<div class="block2-txt flex-w flex-t p-t-14">
+								<div class="block2-txt-child1 flex-col-l ">
+									<a href="product-detail.html"
+										class="stext-104 cl4 hov-cl1 trans-04 js-name-b2 p-b-6">
+										<%= x.name %>
+									</a>
+
+									<span class="stext-105 cl3">
+										price <%= x.price %>
+									</span>
+								</div>
+
+								<div class="block2-txt-child2 flex-r p-t-3">
+
+
+									<% if(typeof userData !=="undefined"){%>
+
+									<button  class="btn-addwish-b2 dis-block pos-relative js-addwish-b2" onclick="addtowishlist('<%= x._id %>')">
+										<img class="icon-heart1 dis-block trans-04" src="/images/icons/icon-heart-01.png" alt="ICON">
+										<img class="icon-heart2 dis-block trans-04 ab-t-l" src="/images/icons/icon-heart-02.png" alt="ICON">
+									  </button>
+
+									
+									  <% }else{ %>
+										
+									<a href="/loginpage" class="btn-addwish-b2 dis-block pos-relative" >
+										<img class="icon-heart1 dis-block trans-04" src="/images/icons/icon-heart-01.png" alt="ICON">
+										<img class="icon-heart2 dis-block trans-04 ab-t-l" src="/images/icons/icon-heart-02.png" alt="ICON">
+									
+									</a>
+									<% } %>
+									  
+
+								</div>
+							</div>
+						</div>
+					</div>
+
+
+					<% }) %>
+			</div>
+
+
+
+
+
+
+			<!-- Load more -->
+			<div class="flex-c-m flex-w w-full p-t-45">
+				<a href="/allproducts" class="flex-c-m stext-101 cl5 size-103 bg2 bor1 hov-btn1 p-lr-15 trans-04">
+					Load More
+				</a>
+			</div>
+		</div>
+	</section>
+
+
+	<script>
+		function addtowishlist(proid){
+			
+			$.ajax({
+				url:'/addtowishlist',
+				data:{
+					productId:proid
+				},
+				
+				method:"post",
+				
+				success:(response)=>{
+					
+					console.log(response)
+				}
+				
+			})
+		}
+	</script>
+
+
+	
+	
+
+
+	<%- include('../layouts/user/footer.ejs') %>

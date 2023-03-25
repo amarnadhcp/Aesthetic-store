@@ -1,0 +1,178 @@
+<%- include('../layouts/user/header.ejs') %>
+<%- include('../layouts/user/navbar.ejs') %>
+
+
+
+
+
+
+
+
+
+
+
+<!doctype html>
+<html lang="en">
+  <head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+
+    <div class="container m-t-100">
+        <div class="main-body">
+        
+              <!-- Breadcrumb -->
+              <!-- <nav aria-label="breadcrumb" class="main-breadcrumb">
+                <ol class="breadcrumb">
+                  <li class="breadcrumb-item"><a href="index.html">Home</a></li>
+                  <li class="breadcrumb-item"><a href="javascript:void(0)">User</a></li>
+                  <li class="breadcrumb-item active" aria-current="page">User Profile</li>
+                </ol>
+              </nav> -->
+              <!-- /Breadcrumb -->
+
+ 
+              <div class="row gutters-sm p-t-23 " >
+                <div class="col-md-4 mb-3">
+                  <div class="card">
+                    <div class="card-body">
+                      <div class="d-flex flex-column align-items-center text-center">
+                        <img src="https://bootdey.com/img/Content/avatar/avatar7.png" alt="Admin" class="rounded-circle" width="150">
+                        <div class="mt-3">
+                          <h4>   <%= userData.username%> </h4>
+                          <!-- <p class="text-secondary mb-1">Full Stack Developer</p>
+                          <p class="text-muted font-size-sm">Bay Area, San Francisco, CA</p>
+                          <button class="btn btn-primary">Follow</button>
+                          <button class="btn btn-outline-primary">Message</button> -->
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                  
+                </div>
+                <div class="col-md-8">
+                  <div class="card mb-3">
+                    <div class="card-body">
+                      <div class="row">
+                        <div class="col-sm-3">
+                          <h6 class="mb-0">Full Name</h6>
+                        </div>
+                        <div class="col-sm-9 text-secondary">
+                        <%= userData.username%>
+                        </div>
+                      </div>
+                      <hr>
+                      <div class="row">
+                        <div class="col-sm-3">
+                          <h6 class="mb-0">Email</h6>
+                        </div>
+                        <div class="col-sm-9 text-secondary">
+                            <%= userData.email%>
+                        </div>
+                      </div>
+                     
+                      <!-- <div class="row">
+                        <div class="col-sm-3">
+                          <h6 class="mb-0">Phone</h6>
+                        </div>
+                        <div class="col-sm-9 text-secondary">
+                          (239) 816-9029
+                        </div>
+                      </div> -->
+                      <hr>
+                      <div class="row">
+                        <div class="col-sm-3">
+                          <h6 class="mb-0">Mobile</h6>
+                        </div>
+                        <div class="col-sm-9 text-secondary">
+                            <%= userData.mobilenumber%>
+                        </div>
+                      </div>
+                      <hr>
+                      <div class="row">
+                        <div class="col-sm-3">
+                          <h6 class="mb-0">wallet ballance</h6>
+                        </div>
+                        <div class="col-sm-9 text-secondary" >
+                            <%= userData.wallet%>
+                        </div>
+                
+                      </div>
+                     
+                      <!-- <div class="row">
+                        <div class="col-sm-3">
+                          <h6 class="mb-0">Address</h6>
+                        </div>
+                    
+                        <% userData.address.forEach((x)=> { %>
+                        <div class="col-sm-9 text-secondary">
+                          <%=x.country%>,
+                          <%=x.state%>,
+                          <%=x.district%>,
+                          <%=x.street%>,
+                          <%=x.housename%>,
+                          <%=x.pincode%>,
+                          <%=x.phone%>,   
+                        </div>
+                        <%}) %>
+                      </div> -->
+                      <hr>
+                      <div class="row">
+                        <div class="col-sm-12">
+                          <!-- <a class="btn btn-info " href="">Edit</a> -->
+
+
+                          <!-- <a class="btn btn-secondary" href="/newaddress">add Address</a> -->
+
+                          <a class="btn btn-success" href="/viewaddress">View Addres</a>
+
+                          <a class="btn btn-secondary" href="/vieworders">orders history</a>
+
+                          <a class="btn btn-secondary" href="/walletHistory">wallet history</a>
+                        </div>
+                      </div>
+
+                    </div>
+                  </div>
+    
+                
+    
+    
+    
+                </div>
+              </div>
+    
+            </div>
+        </div>
+
+    <!-- Optional JavaScript; choose one of the two! -->
+
+    <!-- Option 1: Bootstrap Bundle with Popper -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
+
+    <!-- Option 2: Separate Popper and Bootstrap JS -->
+    <!--
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js" integrity="sha384-IQsoLXl5PILFhosVNubq5LC7Qb9DXgDA9i+tQ8Zj3iwWAwPtgFTxbJ8NT4GN1R8p" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.min.js" integrity="sha384-cVKIPhGWiC2Al4u+LWgxfKTRIcfu0JTxR+EQDz/bgldoEyl4H0zUF0QKbrJ0EcQF" crossorigin="anonymous"></script>
+    -->
+  </body>
+</html>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<%- include('../layouts/user/footer.ejs') %>

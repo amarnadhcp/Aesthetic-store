@@ -1,0 +1,206 @@
+<%- include('../layouts/admin/header.ejs') %>
+
+
+
+
+  <!-- Layout wrapper -->
+  <div class="layout-wrapper layout-content-navbar">
+    <div class="layout-container">
+      <!-- Menu -->
+      <%- include('../layouts/admin/sidebar.ejs') %>
+
+        <!-- / Menu -->
+
+        <!-- Layout container -->
+        <div class="layout-page">
+          <!-- Navbar -->
+
+          <%- include('../layouts/admin/navbar.ejs') %>
+
+
+
+            <br>
+
+
+            <div class="col-xxl">
+              <div class="card mb-4">
+                <div class="card-header d-flex align-items-center justify-content-between">
+                  <h5 class="mb-0">edit Product</h5>
+                
+                  <small class="text-muted float-end">Editing product</small>
+             
+                </div>
+                <div class="card-body">
+                  <form action="" method="post" enctype="multipart/form-data">
+
+                    <div class="row mb-3">
+                      <label class="col-sm-2 col-form-label" for="basic-default-name">Product name</label>
+                      <div class="col-sm-10">
+                        <input type="text" class="form-control" id="basic-default-name" name="form_product"
+                          value="<%=productdata.name %>">
+                      </div>
+                    </div>
+
+                    <div class="row mb-3">
+                      <label class="col-sm-2 col-form-label" for="basic-default-name">Category</label>
+                      <div class="col-sm-10">
+                        <select name="form_category" class="form-control form-control-line">
+                          <option value="<%= productdata.category._id %>">
+                            <%= productdata.category.category%>
+                          </option>
+
+                          <% categorydata.forEach((x,index)=> { %>
+                            <option value="<%=x._id %>">
+                              <%=x.category %>
+                            </option>
+                            <% }); %>
+
+                        </select>
+                      </div>
+                    </div>
+
+
+
+
+
+
+                    <div class="row mb-3">
+                      <label class="col-sm-2 col-form-label" for="basic-default-name">Description</label>
+                      <div class="col-sm-10">
+                        <input type="text" class="form-control" id="basic-default-name" name="form_description"
+                          value="<%= productdata.description %>" />
+                      </div>
+                    </div>
+
+                    <div class="row mb-3">
+                      <label class="col-sm-2 col-form-label" for="basic-default-name">Stock</label>
+                      <div class="col-sm-10">
+                        <input type="number" min="1" class="form-control" id="basic-default-name" name="form_stock"
+                          value="<%= productdata.stock %>" />
+                      </div>
+                    </div>
+
+
+                    <div class="row mb-3">
+                      <label class="col-sm-2 col-form-label" for="basic-default-name">price</label>
+                      <div class="col-sm-10">
+                        <input type="number" min="1" class="form-control" id="basic-default-name" name="form_price"
+                          value="<%= productdata.price %>" />
+                      </div>
+                    </div>
+
+
+                     <!-- <div class="row mb-3">
+                    <label class="col-sm-2 col-form-label" for="basic-default-name">status</label>
+                    <div class="col-sm-10">
+                      <input type="text"  class="form-control" id="basic-default-name"  name="form_status"/>
+                    </div>
+                    </div> -->
+
+
+                    <div class="row mb-3">
+                      <label class="col-sm-2 col-form-label" for="basic-default-name">image</label>
+                      <div class="col-sm-10">
+                       
+
+                        <% productdata.image.forEach((x,index)=> { %>
+                          <img src="/productImages/<%= x %>" alt="" width="60px" height="50">
+
+                          <% }); %>
+
+                         
+
+                            <!-- Button trigger modal -->
+                            <button type="button" class="btn btn-primary" data-bs-toggle="modal"
+                              data-bs-target="#exampleModal">
+                              edit image 
+                            </button>
+                            <br>
+                            <br>
+                            <% if(typeof imgfull !== 'undefined'){ %>
+                              <div > <h5 style="color: red;">only 3 images is allowed</h5></div> 
+                              <% } %>   
+
+                      </div>
+
+                    </div>
+
+
+
+                    
+
+
+                    <div class="row justify-content-end">
+
+                      <% if(typeof message!=="undefined" ){%>
+                        <h1 style="font-size:16px;color:rgb(73, 34, 227);">
+                          <%=message %>
+                        </h1>
+                        <%}%>
+
+                   
+
+                          <div class="col-sm-10">
+
+                            <button type="submit" class="btn btn-primary">Submit</button>
+
+                          </div>
+
+                    </div>
+     </form> 
+                </div>
+              </div>
+            </div>
+
+
+
+
+    <!-- /////////////////////////////////////////////////////// modallll poopup///////////////////////////////////////////////////////////////////////////////////////////////////////////////////// -->          
+             <!-- Modal -->
+             <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel"
+             aria-hidden="true">
+             <div class="modal-dialog">
+               <div class="modal-content">
+                 <div class="modal-header">
+                   <h5 class="modal-title" id="exampleModalLabel">Image editing</h5>
+                   <button type="button" class="btn-close" data-bs-dismiss="modal"
+                     aria-label="Close"></button>
+                 </div>
+
+                  <!-- form starts -->
+       <form action="/admin/editproducts/updateimage/<%- productdata._id  %>" method="post" enctype="multipart/form-data">     
+                 <div class="modal-body">
+     
+                   <input multiple type="file"   class="form-control" id="basic-default-name"  name="image"/>
+                   <br>
+                   <% productdata.image.forEach((x,index)=> { %>
+
+                     <img class="mb-3" src="/productImages/<%= x %>" alt="" width="60px" height="50"> 
+                  <!-- dlete button -->
+                     <a href="/admin/deleteimg/<%= x %>/<%= productdata._id%>">                                      
+                     <button type="button" class="btn btn-danger mb-4" data-bs-dismiss="modal">delete</button>
+                     </a>
+
+                     <br>
+
+                     <% }); %>
+
+                 </div>
+                 <div class="modal-footer">
+                   <button type="button" class="btn btn-secondary"
+                     data-bs-dismiss="modal">Close</button>
+                   <button type="submit" class="btn btn-primary">Save changes</button>
+                 </div>
+               </div>
+      </form>    
+             </div>
+           </div>
+
+
+
+
+
+
+
+
+            <%- include('../layouts/admin/footer.ejs') %>

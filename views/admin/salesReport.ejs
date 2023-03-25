@@ -1,0 +1,78 @@
+  <%- include('../layouts/admin/header.ejs') %>
+
+
+
+
+    <!-- Layout wrapper -->
+    <div class="layout-wrapper layout-content-navbar">
+      <div class="layout-container">
+        <!-- Menu -->
+        <%- include('../layouts/admin/sidebar.ejs') %>
+
+        <!-- / Menu -->
+
+        <!-- Layout container -->
+        <div class="layout-page">
+          <!-- Navbar -->
+
+          <%- include('../layouts/admin/navbar.ejs') %>
+
+          <br>
+          <div class="col-xxl">
+            <div class="card mb-4">
+              <div class="card-header d-flex align-items-center justify-content-between">
+                <h5 class="mb-0">Sales Report</h5>
+                <small class="text-muted float-end">View sales report</small>
+              </div>
+              <div class="card-header  ">
+                <button type="button" class="btn btn-primary float-right  " onclick="window.print()">Print Report</button>
+              </div>
+              <div class="card-body">
+                <table class="table" datatable id="reload" >
+                  <thead>
+                    <tr>
+                      <th>No</th>
+                      <th>Date</th>
+                      <th>Product Name</th>
+                      <th>Quantity</th>
+                      <th>Price</th>
+                      <th>Payment Method</th>
+                      <th>Total Amount</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <% sales.forEach((sale, i) => { %>
+                      <tr>
+                        <td><%= i+1 %></td>
+                        <td><%= sale.date %></td>
+                        <td>
+                          <% sale.product.forEach((product) => { %>
+                            <%= product.productId.name %> x <%= product.quantity %><br>
+                          <% }); %>
+                        </td>
+                        <td><%= sale.product.reduce((total, item) => total + item.quantity, 0) %></td>
+                        <td><%= sale.product.reduce((total, item) => total + item.sprice, 0) %></td>
+                        <td><%= sale.payementType %></td>
+                        <td><%= sale.total %></td>
+                      </tr>
+                    <% }); %>
+                    
+                    
+                  </tbody>
+                </table>
+              </div>
+            </div>
+          </div>
+
+
+
+          <script>
+            $(document).ready(function () {
+              $('#reload').DataTable();
+            });
+          </script>
+
+
+
+       
+    <%- include('../layouts/admin/footer.ejs') %>

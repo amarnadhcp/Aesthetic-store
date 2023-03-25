@@ -1,0 +1,80 @@
+
+
+
+
+
+<%- include('../layouts/admin/header.ejs') %>
+
+
+
+
+    <!-- Layout wrapper -->
+    <div class="layout-wrapper layout-content-navbar">
+      <div class="layout-container">
+        <!-- Menu -->
+        <%- include('../layouts/admin/sidebar.ejs') %>
+
+        <!-- / Menu -->
+
+        <!-- Layout container -->
+        <div class="layout-page">
+          <!-- Navbar -->
+
+          <%- include('../layouts/admin/navbar.ejs') %>
+
+
+
+          <br>
+
+
+          <div class="col-xxl">
+            <div class="card mb-4">
+              <div class="card-header d-flex align-items-center justify-content-between">
+                <h5 class="mb-0">New category</h5>
+                <small class="text-muted float-end">Iput new category</small>
+              </div>
+              <div class="card-body">
+                <form action="/admin/category/addcategory" method="post">
+                  <div class="row mb-3">
+                    <label class="col-sm-2 col-form-label" for="basic-default-name">Category name</label>
+                    <div class="col-sm-10">
+                      <input type="text" class="form-control" id="basic-default-name"  name="latestcategory"/>
+                    </div>
+                  </div>
+                  <div class="row mb-3">
+                    <label class="col-sm-2 col-form-label" for="basic-default-company">Description</label>
+                    <div class="col-sm-10">
+                      <input
+                        type="text"
+                        class="form-control"
+                        id="basic-default-company"
+                        name="latestdescription"
+                      />
+                    </div>
+                  </div>
+                  <div class="row justify-content-end">
+                    
+                    <% if(typeof message!=="undefined"){%>
+                      <h1 style ="font-size:16px;color:rgb(73, 34, 227);"><%=message %></h1>
+                      <%}%>
+
+                    <div class="col-sm-10">
+                  
+                   <button type="submit" class="btn btn-primary">Send</button>
+          
+                    </div>
+
+                  </div>
+                </form>
+              </div>
+            </div>
+          </div>
+        
+
+
+
+
+
+
+       
+    <%- include('../layouts/admin/footer.ejs') %>

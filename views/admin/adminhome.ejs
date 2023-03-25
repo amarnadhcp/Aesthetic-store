@@ -1,0 +1,407 @@
+
+
+
+
+
+<%- include('../layouts/admin/header.ejs') %>
+
+
+
+
+    <!-- Layout wrapper -->
+    <div class="layout-wrapper layout-content-navbar">
+      <div class="layout-container">
+        <!-- Menu -->
+        <%- include('../layouts/admin/sidebar.ejs') %>
+
+        <!-- / Menu -->
+
+        <!-- Layout container -->
+        <div class="layout-page">
+          <!-- Navbar -->
+
+          <%- include('../layouts/admin/navbar.ejs') %>
+
+           <!--bar chart script-->
+
+
+          <!-- / Navbar -->
+
+          <!-- Content wrapper -->
+          <div class="content-wrapper">
+            <!-- Content -->
+
+
+
+            <div class="container-xxl flex-grow-1 container-p-y">
+              <div class="row">
+                <div class="col-lg-8 mb-4 order-0">
+                  <div class="card">
+                    <div class="d-flex align-items-end row">
+                      <div class="col-sm-7">
+                        <div class="card-body">
+                          <h5 class="card-title text-primary">Congratulations Admin</h5>
+                          <p class="mb-4">
+                            check your <span class="fw-bold"> print here</span> 
+                        </p>
+
+                          <!-- <a href="javascript:;" class="btn btn-sm btn-outline-primary">Print Report</a> -->
+                          <button type="button" class="btn btn-primary" data-bs-toggle="modal"
+                              data-bs-target="#salesReportModal">
+                              Report
+                            </button>
+                        </div>
+                      </div>
+                      
+                    </div>
+                  </div>
+                </div>
+                <div class="col-lg-4 col-md-4 order-1">
+                  <div class="row">
+                    <div class="col-lg-6 col-md-12 col-6 mb-4">
+                      <div class="card">
+                        <div class="card-body">
+                          <div class="card-title d-flex align-items-start justify-content-between">
+                            <div class="avatar flex-shrink-0">
+                              <img
+                                src="../assets/img/icons/unicons/chart-success.png"
+                                alt="chart success"
+                                class="rounded"
+                              />
+                            </div>
+                            
+                          </div>
+                          <span class="fw-semibold d-block mb-1">Total Sales</span>
+                          <h3 class="card-title mb-2"><%= Totalsales %></h3>
+                          <!-- <small class="text-success fw-semibold"><i class="bx bx-up-arrow-alt"></i> +72.80%</small> -->
+                        </div>
+                      </div>
+                    </div>
+                    <div class="col-lg-6 col-md-12 col-6 mb-4">
+                      <div class="card">
+                        <div class="card-body">
+                          <div class="card-title d-flex align-items-start justify-content-between">
+                            <div class="avatar flex-shrink-0">
+                              <img
+                                src="../assets/img/icons/unicons/wallet-info.png"
+                                alt="Credit Card"
+                                class="rounded"
+                              />
+                            </div>
+                            
+                          </div>
+                          <span>Sales Amount</span>
+                          <h3 class="card-title text-nowrap mb-1"><i class="bi bi-currency-inr">&#x20b9;</i><%= sum %></h3>
+                          <!-- <small class="text-success fw-semibold"><i class="bx bx-up-arrow-alt"></i> +28.42%</small> -->
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+
+                <div class="col-12 col-md-8 col-lg-4 order-3 order-md-2">
+                  <div class="row">
+                   
+                   
+                  </div>
+                </div>
+              </div>
+              <div class="row">
+
+
+
+
+                <!-- Order Statistics -->
+                <div class="col-md-6 col-lg-4 col-xl-4 order-0 mb-4">
+                  <div class="card h-100">
+                    <div class="card-header d-flex align-items-center justify-content-between pb-0">
+                      <div class="card-title mb-0">
+                        <h5 class="m-0 me-2">Order Statistics</h5>
+                        <!-- <small class="text-muted">42.82k Total Sales</small> -->
+                      </div>
+                     
+                    </div>
+                    <div class="card-body">
+                      <div class="d-flex justify-content-between align-items-center mb-3">
+                        <div class="d-flex flex-column align-items-center gap-1">
+                          <h2 class="mb-2"><%= Totalsales %></h2>
+                          <span>Total Orders</span>
+                        </div>
+                        <div id="orderStatisticsChart"></div>
+                      </div>
+                      <ul class="p-0 m-0">
+                        <li class="d-flex mb-4 pb-1">
+                          <div class="avatar flex-shrink-0 me-3">
+                            <span class="avatar-initial rounded bg-label-primary"
+                              ><i class="bx bx-mobile-alt"></i
+                            ></span>
+                          </div>
+                          <div class="d-flex w-100 flex-wrap align-items-center justify-content-between gap-2">
+                            <div class="me-2">
+                              <h6 class="mb-0">COD</h6>
+                              <!-- <small class="text-muted">Mobile, Earbuds, TV</small> -->
+                            </div>
+                            <div class="user-progress">
+                              <small class="fw-semibold"><%= COD %></small>
+                            </div>
+                          </div>
+                        </li>
+
+                        <li class="d-flex mb-4 pb-1">
+                          <div class="avatar flex-shrink-0 me-3">
+                            <span class="avatar-initial rounded bg-label-success"><i class="bx bx-closet"></i></span>
+                          </div>
+                          <div class="d-flex w-100 flex-wrap align-items-center justify-content-between gap-2">
+                            <div class="me-2">
+                              <h6 class="mb-0">UPI</h6>
+                              <!-- <small class="text-muted">T-shirt, Jeans, Shoes</small> -->
+                            </div>
+                            <div class="user-progress">
+                              <small class="fw-semibold"><%= UPI %></small>
+                            </div>
+                          </div>
+                        </li>
+
+                        <li class="d-flex mb-4 pb-1">
+                          <div class="avatar flex-shrink-0 me-3">
+                            <span class="avatar-initial rounded bg-label-info"><i class="bx bx-home-alt"></i></span>
+                          </div>
+                          <div class="d-flex w-100 flex-wrap align-items-center justify-content-between gap-2">
+                            <div class="me-2">
+                              <h6 class="mb-0">wallet</h6>
+                              <!-- <small class="text-muted">Fine Art, Dining</small> -->
+                            </div>
+                            <div class="user-progress">
+                              <small class="fw-semibold"><%= WALLET %></small>
+                            </div>
+                          </div>
+                        </li>
+
+
+                      </ul>
+                    </div>
+                  </div>
+                </div>
+
+           <input type="number" id="UPI" value="<%= UPI %>" hidden>
+           <input type="number" id="COD" value="<%= COD %>" hidden>
+           <input type="number" id="WALLET" value="<%=WALLET%>" hidden>
+
+                <!--/ Order Statistics -->
+
+
+
+
+
+
+<!-- 
+
+     
+ 
+  <style>
+    body {
+      background-color: white;
+    }
+    #myChart {
+      margin: 0 auto;
+    }
+  </style>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.5.0/Chart.min.js"></script>
+ -->
+
+
+
+
+  <div class="col-lg-8   order-0">
+    <div class="card">
+      <div class="d-flex align-items-end row">
+       
+          <div class="card-body">
+            <h5 class="card-title text-primary">Order satus</h5>
+       
+            <canvas id="myChart" style="max-height:900px"></canvas>
+
+            <script>
+              console.log("<%=cancelledCount %>");
+              var xValues = ["Delivered", "Confirmed", "Cancelled", "Returned",""];
+              var yValues = ["<%=deliveryCount %>","<%=confirmedCount %>","<%=cancelledCount %>", "<%=returnedCount %>","0"];
+              var barColors = ["green", "orange", "blue","red"];
+              new Chart("myChart", {
+                type: "bar",
+                data: {
+                  labels: xValues,
+                  datasets: [{
+                    backgroundColor: barColors,
+                    data: yValues,
+                    
+                  }]
+                },
+                options: {
+                  legend: { display: false },
+                  title: {
+                    display: true,
+                    text: ""
+                  }
+                },
+                indexAxis: "y", // set the starting index to 0
+            scales: {
+              y: {
+             ticks: {
+             stepSize: 0 // set the step size to 1 to match the index
+        }
+         }
+              }
+  
+              });
+            </script>
+          </div>
+   
+      </div>
+    </div>
+  </div>
+
+
+
+
+
+
+  
+
+
+
+
+
+               <div class="col-lg-8 mb-4 order-0">
+                  <div class="card">
+                    <div class="d-flex align-items-end row">
+                      
+                        <div class="card-body">
+                          <h5 class="card-title text-primary">sales report</h5>
+                          
+                          
+                            <canvas id="myChartsales" style="width:100%;max-width:900px"></canvas>
+                              
+                          
+                        </div>
+                            
+                    </div>
+                  </div>
+                </div>
+
+
+
+
+
+
+
+
+<script>
+  var xValues = ["<%=date[0]%>","<%=date[1]%>","<%=date[2]%>","<%=date[3]%>","<%=date[4]%>","<%=date[5]%>","<%=date[6]%>"];
+  new Chart("myChartsales", {
+    type: "line",
+    data: {
+      labels: xValues,
+      datasets: [ { 
+        data: ["<%=sales[0]%>","<%=sales[1]%>","<%=sales[2]%>","<%=sales[3]%>","<%=sales[4]%>","<%=sales[5]%>","<%=sales[6]%>"],
+        borderColor: "green",
+        fill: false
+      }]
+    },
+    options: {
+      legend: {display: false}
+    }
+  });
+  </script>
+       
+
+                <!-- Expense Overview -->
+           
+              </div>
+            </div>
+        
+
+    
+
+            <div class="content-backdrop fade"></div>
+          </div>
+          <!-- Content wrapper -->
+        </div>
+        <!-- / Layout page -->
+      </div>
+
+      <!-- Overlay -->
+      <div class="layout-overlay layout-menu-toggle"></div>
+    </div>
+    <!-- / Layout wrapper -->
+
+
+    
+ <!-- /////////////////////////////////////////////////////// modallll poopup///////////////////////////////////////////////////////////////////////////////////////////////////////////////////// -->          
+          <!-- Modal -->
+<!-- Modal -->
+<div class="modal fade" id="salesReportModal" tabindex="-1" aria-labelledby="salesReportModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="salesReportModalLabel">Sales Report</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        <form id="salesReportForm">
+          <div class="mb-3">
+            <label for="startDate" class="form-label">From date</label>
+            <input type="date" class="form-control" id="startDate" name="startDate" >
+          </div>
+          <div class="mb-3">
+            <label for="endDate" class="form-label">To date</label>
+            <input type="date" class="form-control" id="endDate" name="endDate" >
+          </div>
+        </form>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+        <button type="submit" form="salesReportForm" class="btn btn-primary" id="submitSalesReport">Generate Report</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+
+
+<script>
+  $(function() {
+    $('#submitSalesReport').click(function(e) {
+      e.preventDefault();
+      var formData = $('#salesReportForm').serialize();
+      $.ajax({
+        method: 'post',
+        url: '/admin/salesReport',
+        data: formData,  
+        success: function(response) {
+          if(response.success) {
+            // Get sales data passed from the backend
+            var salesData = response.sales;
+            console.log(typeof salesData);
+            console.log( salesData);
+            
+            // Encode salesData as a query parameter
+            var salesDataQuery = encodeURIComponent(JSON.stringify(salesData));
+            
+            // Redirect to the print report page with salesData as a query parameter
+            location.href="/admin/printReport/" + salesDataQuery;
+          }
+        }     
+      });
+   
+    });
+  });
+</script>
+
+
+
+
+    <%- include('../layouts/admin/footer.ejs') %>
+
+
+

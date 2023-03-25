@@ -1,0 +1,76 @@
+<%- include('../layouts/admin/header.ejs') %>
+
+
+
+
+    <!-- Layout wrapper -->
+    <div class="layout-wrapper layout-content-navbar">
+      <div class="layout-container">
+        <!-- Menu -->
+        <%- include('../layouts/admin/sidebar.ejs') %>
+
+        <!-- / Menu -->
+
+        <!-- Layout container -->
+        <div class="layout-page">
+          <!-- Navbar -->
+
+          <%- include('../layouts/admin/navbar.ejs') %>
+
+
+<br>
+<br>
+ 
+<br>
+           <div>
+              <a href="/admin/coupon/addcoupon">
+                   <button type="button" class="btn btn -xl btn-primary mb-3">ADD COUPON</button>
+               </a>
+           </div>
+        
+            
+           
+  
+
+   
+          <div class="card">
+            <h5 class="card-header">All Banners</h5>
+            <div class="table-responsive text-nowrap">
+         
+              <table class="table">
+                <thead>
+                  <tr>
+                    <th class="text-center">No</th>
+                    <th class="text-center">Coupon code</th>
+                    <th class="text-center">Minimum purchase amount</th>
+                    <th class="text-center">Max discount</th>
+                    <th class="text-center">Percentage</th>
+                    <th class="text-center">Expiry date</th>
+                  </tr>
+                </thead>
+                <% couponData.forEach((x,index) => { %>
+                  <tbody class="table-border-bottom-0">
+                    <tr>
+                      <td class="text-center"><%= index+1 %></td>
+                      <td class="text-center"><%= x.code %></td>
+                      <td class="text-center"><%= x.minPurchaseAmount %></td>
+                      <td class="text-center"><%= x.maxdiscount %></td>
+                      <td class="text-center"><%= x.percentage %>%</td>
+                      <td class="text-center"><%= x.expirydate.toLocaleString('en-us', { day: '2-digit', month: '2-digit', year: '2-digit' }) %></td>
+                    </tr> 
+                  </tbody>
+                <% }) %>
+              </table>
+              
+        
+            </div>
+          </div>
+
+          <div>
+            <% if(typeof message!=="undefined"){%>
+              <h1 style ="font-size:16px;color:rgb(73, 34, 227);"><%=message %></h1>
+              <%}%>
+          </div>
+
+
+    <%- include('../layouts/admin/footer.ejs') %>

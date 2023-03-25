@@ -1,0 +1,169 @@
+<%- include('../layouts/user/header.ejs') %>
+    <%- include('../layouts/user/navbar.ejs') %>
+
+        <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"
+            integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN"
+            crossorigin="anonymous"></script>
+
+        <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.13.4/css/jquery.dataTables.min.css">
+
+
+<!------ data search ------->
+
+<!-- table search pagination-->
+
+
+
+        <!-- Include Bootstrap CSS -->
+        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css"
+            integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+
+        <!-- Begin Page Content -->
+        <main class="container my-5 ">
+            <div class="row ">
+                <div class="col ">
+                    <h1 class="fw-bold">Orders</h1>
+                    <hr>
+                </div>
+            </div>
+
+
+            <div class="row">
+                <div class="col">
+                    <table class="table table-hover border rounded shadow" id="reloadDiv">
+                        <thead class="bg-light">
+                            <tr>
+                                <th scope="col">#</th>
+                                <th scope="col">Product Name</th>
+                                <th scope="col">Date</th>
+                                <th scope="col">Delivery Address</th>
+                                <th scope="col">Total Amount</th>
+                                <th scope="col">Payment type</th>
+                                <th scope="col">Status</th>
+                                <th scope="col">Action</th>
+                                <!-- <th scope="col">Detail</th> -->
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <% orderData.forEach((order, index)=> { %>
+                                <tr>
+                                    <th scope="row">
+                                        <%= index + 1 %>
+                                    </th>
+                                    <td>
+                                        <% order.product.forEach((product)=> { %>
+                                            <p class="fw-normal mb-1">
+                                                <%= product.productId.name %>
+                                            </p>
+                                            <% }) %>
+                                    </td>
+                                    <td>
+                                        <%= order.date.toLocaleString('en-us', { day: '2-digit' , month: '2-digit' ,
+                                            year: '2-digit' }) %>
+                                    </td>
+                                    <td>
+                                        <%= order.deliveryAddress %>
+                                    </td>
+                                    <td>
+                                        <%= order.total %>
+                                    </td>
+                                    <td>
+                                        <%= order.payementType %>
+                                    </td>
+                                    <td>
+                                        <%= order.status %>
+                                    </td>
+
+
+
+                                    <% if(order.status=="cancelled" || order.status=="Return pending" ||
+                                        order.status=="Returned" || order.status=="processing" ||
+                                        order.status=="Payment failed" ){ %>
+                                        <!--nothing-->
+                                        <% }else if (order.status=="delivered" ) { %>
+                                            <td><button class="btn btn-outline-danger btn-sm fw-bold"
+                                                    onclick="Returnorder('<%=order._id %>')">RETURN</button></td>
+                                            <% }else{ %>
+                                                <td><button class="btn btn-outline-danger btn-sm fw-bold"
+                                                        onclick="Cancelorder('<%=order._id %>')">CANCEL</button></td>
+                                                <%} %>
+
+
+                                                    <!-- <td> <svg xmlns="http://www.w3.org/2000/svg" width="30" height="30" fill="currentColor" class="bi bi-arrow-right-square-fill" viewBox="0 0 16 16">  <path d="M0 14a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V2a2 2 0 0 0-2-2H2a2 2 0 0 0-2 2v12zm4.5-6.5h5.793L8.146 5.354a.5.5 0 1 1 .708-.708l3 3a.5.5 0 0 1 0 .708l-3 3a.5.5 0 0 1-.708-.708L10.293 8.5H4.5a.5.5 0 0 1 0-1z"/> </svg></td>  -->
+                                </tr>
+                                <% }) %>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </main>
+        <!-- End Page Content -->
+
+        <!-- Include Bootstrap JS -->
+        <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"
+            integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN"
+            crossorigin="anonymous"></script>
+        <script src="https://cdn.jsdelivr.net/npm/popper.js@1.12.9/dist/umd/popper.min.js"
+            integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q"
+            crossorigin="anonymous"></script>
+        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.min.js"
+            integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl"
+            crossorigin="anonymous"></script>
+
+
+
+
+        <script>
+            function Cancelorder(orderid) {
+                Swal.fire({
+                    title: 'Are you sure?',
+                    text: "You won't be able to revert this!",
+                    icon: 'warning',
+                    showCancelButton: true,
+                    confirmButtonColor: '#3085d6',
+                    cancelButtonColor: '#d33',
+                    confirmButtonText: 'Yes, cancel it!'
+                }).then((result) => {
+                    if (result.isConfirmed) {
+                        $.ajax({
+                            url: "/cancelorder",
+                            data: {
+                                orderId: orderid
+                            },
+                            method: "post",
+                            success: (response) => {
+                                $('#reloadDiv').load("/vieworders #reloadDiv")
+                            }
+                        })
+                    }
+                })
+            }
+        </script>
+
+
+
+        <script>
+            function Returnorder(orderid) {
+                $.ajax({
+                    url: "/returnorder",
+                    data: {
+                        orderId: orderid
+                    },
+                    method: "post",
+                    success: (response) => {
+                        $('#reloadDiv').load("/vieworders #reloadDiv")
+                        
+                    }
+                })
+            }
+        </script>
+
+
+        <script>
+            $(document).ready(function() {
+                $('#reloadDiv').DataTable();
+            });
+        </script>
+
+
+        <%- include('../layouts/user/footer.ejs') %>
