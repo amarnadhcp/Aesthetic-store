@@ -9,6 +9,10 @@ const app = express();
 
 const $ = require('jquery');
 
+const logger = require("morgan")
+
+app.use(logger("dev"))
+
 
 const nocache = require('nocache') 
 
@@ -33,7 +37,8 @@ const adminRoute=require('./routes/adminRoute')
 app.use('/admin',adminRoute)
 
 
-const userRoute = require('./routes/userRoute')
+const userRoute = require('./routes/userRoute');
+const morgan = require("morgan");
 app.use('/',userRoute)
 
 

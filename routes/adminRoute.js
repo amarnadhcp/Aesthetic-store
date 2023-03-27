@@ -31,7 +31,7 @@ const multer= require('multer');
 // const { ISLOGOUT } = require('../midleware/auth');
 const storage= multer.diskStorage({
   destination: function(req,file,cb){
-      cb(null,path.join(__dirname,'../public/ProductImages'))
+      cb(null,path.join(__dirname,'../public/productImages'))
   },
   filename:function(req,file,cb){
       const name = Date.now()+'-'+file.originalname;
@@ -110,7 +110,9 @@ adminRoute.post("/coupon/addcoupon",couponcontroller.addcoupon)
 
 
 
-
+ adminRoute.use(function(req,res,next){
+  res.render('404')
+})
 
 
 

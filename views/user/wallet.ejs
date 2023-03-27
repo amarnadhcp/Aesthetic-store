@@ -42,7 +42,10 @@
                             </tr>
                         </thead>
                         <tbody>
+                            
                             <% orderData.forEach((order, index)=> { %>
+                               
+                                <% if(order.status=="Returned" && order.status=="cancelled" ){%>
                                 <tr>
                                     <th scope="row">
                                         <%= index + 1 %>
@@ -68,7 +71,7 @@
                                         <%= order.status %>
                                     </td>
 
-
+                             <% } %>
                        
                            <% }) %>
                         </tbody>

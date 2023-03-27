@@ -269,7 +269,7 @@ const PaymentVerified= async(req,res)=>{
 const successhow = async(req,res)=>{
     try {
         id = req.session.user._id
-        const userdatas = await usermodel.find({_id:id})
+        const userdatas = await usermodel.findOne({_id:id})
         const orderdatas = await ordermodel.findOne({userId:id}).sort({date:-1})
 
        
@@ -312,7 +312,7 @@ const CancelOrder = async(req,res)=>{
         if(canceled){
             res.json({success:true}) 
            
-            orderdata = await ordermodel.findOne({_id:id})
+            const orderdata = await ordermodel.findOne({_id:id})
            
            // wallet refund
             if(orderdata.payementType == "UPI"){

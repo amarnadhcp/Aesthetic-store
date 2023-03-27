@@ -37,6 +37,7 @@ userRoute.post("/verifyotp",usercontroller.verifyOtp)
 userRoute.get("/allproducts",usercontroller.allproduct)
 userRoute.get("/views/:id",usercontroller.viewproduct)
 userRoute.get("/categoryshow/:id",usercontroller.categoryWiseFilter)
+userRoute.post("/search",usercontroller.search)
 
 
 

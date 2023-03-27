@@ -4,7 +4,7 @@ const productschema = require('../../models/productmodel')
 const bannermodel = require('../../models/bannermodel');
 const ordermodel = require('../../models/ordermodel');
 const categorymodel = require('../../models/categorymodel');
-const productmodel = require('../../models/productmodel');
+// const productmodel = require('../../models/productmodel');
 
 
 
@@ -236,6 +236,35 @@ const allproduct = async (req, res) => {
 
 
 
+const search = async(req,res)=>{
+  try {
+
+    if (req.session.user){
+      const input = req.body.searched
+      const result = new RegExp(input,'i')
+      const productdata = await productschema.find({name:result}).populate("category")
+      const userdata = await usermodel.findOne({_id:req.session.user._id})
+      res.render("allproducts", { userData: userdata, productData: productdata })
+
+    }else{
+
+      const input = req.body.searched
+      const result = new RegExp(input,'i')
+      const productdata = await productschema.find({name:result}).populate("category")
+      res.render("allproducts", {  productData: productdata })
+
+    }
+    
+    
+  } catch (error) {
+    console.log(error.message);
+    
+  }
+}
+
+
+
+
 const categoryWiseFilter = async (req, res) => {
   try {
     const category = req.params.id
@@ -446,6 +475,7 @@ module.exports = {
   verifyOtp,
   viewproduct,
   allproduct,
+  search,
   categoryWiseFilter,
   profileshow,
   alladdress,
