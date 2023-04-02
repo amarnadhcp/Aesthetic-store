@@ -3,22 +3,15 @@ const productschema = require('../../models/productmodel')
 const category=require('../../models/categorymodel')
 const path = require('path')
 
-
-
-
 const fs=require('fs')
 const { updatedata } = require('./admincontroller')
 
 
-
-
 const allproduct = async(req,res,next)=>{
   try{
-
        const Data = await productschema.find({}).populate('category')
        const refcategory = await productschema.find({}).populate('category')
-       console.log(refcategory);
-       console.log("data : "+Data);
+      
        res.render("allproducts",{productdata : Data , refdata :refcategory})
   }catch(error){
    next(error)
@@ -74,11 +67,6 @@ const productadding =async(req,res,next)=>{
 }
 
 
-
-
-
-
-
 const productshow = async (req,res)=>{
     try{
       const CategoryData = await  category.find({})
@@ -89,8 +77,6 @@ const productshow = async (req,res)=>{
     console.log(error.message);
 }
 } 
-
-
 
 
 const deleteproduct = async(req,res)=>{
@@ -121,9 +107,6 @@ const editproductshow =async(req,res)=>{
     console.log(error.message);
   }
 }
-
-
-
 
 
 const  editingproduct = async(req,res)=>{
@@ -175,7 +158,6 @@ const  editingproduct = async(req,res)=>{
 }
 
 
-
 const deleteimage = async(req,res)=>{
   try{
     const imgid =req.params.imgid
@@ -193,9 +175,6 @@ const deleteimage = async(req,res)=>{
   }
 
 }
-
-
-
 
 
 const updateimage = async (req, res) => {
@@ -236,17 +215,37 @@ const updateimage = async (req, res) => {
 }
 
 
+const productstatus = async(req,res)=>{
+  try { 
+    const id = req.params.id
+    const productdata = await productschema.findOne({_id:id})
 
-// ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-// ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+    if(productdata.status){
+    
+      await productschema.updateOne({_id:id},{$set:{status:false}})
+    }else{
+     
+      await productschema.updateOne({_id:id},{$set:{status:true}})
+    }
+    res.redirect("/admin/allproducts")
+  } catch (error) {
+    console.log(error.message);
+  }
+}
 
 
-
-
-
-
-
-
+const viewproduct = async (req, res) => {
+  try {
+      const id = req.params.id
+      const userdata = req.session.user
+      const data = await productschema.findOne({ _id: id }).populate('category')
+  
+      res.render("viewproduct", { Data: data, userData: userdata })
+    
+  } catch (error) {
+    console.log(error.message);
+  }
+}
 
 
 module.exports = {
@@ -258,5 +257,8 @@ module.exports = {
     editproductshow,
     editingproduct,
     deleteimage ,
-    updateimage
+    updateimage,
+    productstatus,
+    viewproduct
+   
 }

@@ -2,17 +2,16 @@ const usermodel = require('../../models/usermodel')
 const couponmodel = require("../../models/couponmodel")
 
 
-
 const checkshow = async (req, res) => {
     try {
         
         const id = req.session.user._id
 
         const userdata = await usermodel.findOne({ _id: id }).populate("cart.product")
-
+        const coupon = await couponmodel.find({ $nor: [{ userused:id }] })
        
         if (userdata.cart.length !== 0) {
-            res.render("checkout", { userData: userdata })
+            res.render("checkout", { userData: userdata ,coupon :coupon })
         }else{
             res.redirect('/cart')
         }
@@ -22,9 +21,6 @@ const checkshow = async (req, res) => {
 
     }
 }
-
-
-
 
 
 const couponApplying = async (req, res) => {
@@ -73,14 +69,6 @@ const couponApplying = async (req, res) => {
         console.log(error.message);
     }
 }
-
-
-
-
-
-
-
-
 
 
 module.exports = {

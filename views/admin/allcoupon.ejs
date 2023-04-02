@@ -1,13 +1,10 @@
 <%- include('../layouts/admin/header.ejs') %>
 
-
-
-
-    <!-- Layout wrapper -->
-    <div class="layout-wrapper layout-content-navbar">
-      <div class="layout-container">
-        <!-- Menu -->
-        <%- include('../layouts/admin/sidebar.ejs') %>
+  <!-- Layout wrapper -->
+  <div class="layout-wrapper layout-content-navbar">
+    <div class="layout-container">
+      <!-- Menu -->
+      <%- include('../layouts/admin/sidebar.ejs') %>
 
         <!-- / Menu -->
 
@@ -17,60 +14,86 @@
 
           <%- include('../layouts/admin/navbar.ejs') %>
 
+            <br>
+            <br>
 
-<br>
-<br>
- 
-<br>
-           <div>
+            <br>
+            <div>
               <a href="/admin/coupon/addcoupon">
-                   <button type="button" class="btn btn -xl btn-primary mb-3">ADD COUPON</button>
-               </a>
-           </div>
-        
-            
-           
-  
-
-   
-          <div class="card">
-            <h5 class="card-header">All Banners</h5>
-            <div class="table-responsive text-nowrap">
-         
-              <table class="table">
-                <thead>
-                  <tr>
-                    <th class="text-center">No</th>
-                    <th class="text-center">Coupon code</th>
-                    <th class="text-center">Minimum purchase amount</th>
-                    <th class="text-center">Max discount</th>
-                    <th class="text-center">Percentage</th>
-                    <th class="text-center">Expiry date</th>
-                  </tr>
-                </thead>
-                <% couponData.forEach((x,index) => { %>
-                  <tbody class="table-border-bottom-0">
-                    <tr>
-                      <td class="text-center"><%= index+1 %></td>
-                      <td class="text-center"><%= x.code %></td>
-                      <td class="text-center"><%= x.minPurchaseAmount %></td>
-                      <td class="text-center"><%= x.maxdiscount %></td>
-                      <td class="text-center"><%= x.percentage %>%</td>
-                      <td class="text-center"><%= x.expirydate.toLocaleString('en-us', { day: '2-digit', month: '2-digit', year: '2-digit' }) %></td>
-                    </tr> 
-                  </tbody>
-                <% }) %>
-              </table>
-              
-        
+                <button type="button" class="btn btn -xl btn-primary mb-3">ADD COUPON</button>
+              </a>
             </div>
-          </div>
 
-          <div>
-            <% if(typeof message!=="undefined"){%>
-              <h1 style ="font-size:16px;color:rgb(73, 34, 227);"><%=message %></h1>
-              <%}%>
-          </div>
+            <div class="card">
+              <h5 class="card-header">All Banners</h5>
+              <div class="table-responsive text-nowrap">
+
+                <table class="table">
+                  <thead>
+                    <tr>
+                      <th class="text-center">No</th>
+                      <th class="text-center">Coupon code</th>
+                      <th class="text-center">Minimum purchase amount</th>
+                      <th class="text-center">Max discount</th>
+                      <th class="text-center">Percentage</th>
+                      <th class="text-center">Expiry date</th>
+                    </tr>
+                  </thead>
+                  <% couponData.forEach((x,index)=> { %>
+                    <tbody class="table-border-bottom-0">
+                      <tr>
+                        <td class="text-center">
+                          <%= index+1 %>
+                        </td>
+                        <td class="text-center">
+                          <%= x.code %>
+                        </td>
+                        <td class="text-center">
+                          <%= x.minPurchaseAmount %>
+                        </td>
+                        <td class="text-center">
+                          <%= x.maxdiscount %>
+                        </td>
+                        <td class="text-center">
+                          <%= x.percentage %>%
+                        </td>
+                        <td class="text-center">
+                          <%= x.expirydate.toLocaleString('en-us', { day: '2-digit' , month: '2-digit' , year: '2-digit'
+                            }) %>
+                        </td>
+
+                        <td>
+                          <div class="dropdown">
+                            <button type="button" class="btn p-0 dropdown-toggle hide-arrow" data-bs-toggle="dropdown">
+                              <i class="bx bx-dots-vertical-rounded"></i>
+                            </button>
+                            <div class="dropdown-menu">
+                              <!-- <a class="dropdown-item" href="/admin/editproduct/         "
+                              ><i class="bx bx-edit-alt me-1"></i> Edit</a
+                            > -->
+                              <a class="dropdown-item" href="/admin/deletecoupon/<%= x._id%> "><i
+                                  class="bx bx-trash me-1"></i> Delete</a>
+                            </div>
+                          </div>
+                        </td>
 
 
-    <%- include('../layouts/admin/footer.ejs') %>
+                      </tr>
+                    </tbody>
+                    <% }) %>
+                </table>
+
+
+              </div>
+            </div>
+
+            <div>
+              <% if(typeof message!=="undefined" ){%>
+                <h1 style="font-size:16px;color:rgb(73, 34, 227);">
+                  <%=message %>
+                </h1>
+                           <%}%>
+            </div>
+
+
+            <%- include('../layouts/admin/footer.ejs') %>

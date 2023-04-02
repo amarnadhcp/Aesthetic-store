@@ -1,7 +1,7 @@
 <%- include('../layouts/user/header.ejs') %>
 	<%- include('../layouts/user/navbar.ejs') %>
 
-	
+
 
 		<form id="checkout-form" class="bg0 p-t-75 p-b-85">
 			<div class="container">
@@ -16,11 +16,10 @@
 									</tr>
 
 
-
 								</table>
 							</div>
 
-							<div class="flex-w flex-sb-m bor15 p-t-18 p-b-15 p-lr-40 p-lr-15-sm">
+							<div class="flex-w  bor15 p-t-18 p-b-15 p-lr-40 p-lr-15-sm">
 								<div class="col-md-8">
 
 									<div class="row mb-3">
@@ -30,6 +29,7 @@
 											<input type="text" class="form-control" id="basic-default-name"
 												name="username" value="<%= userData.username %>" />
 										</div>
+
 									</div>
 
 									<div class="row mb-3">
@@ -64,15 +64,30 @@
 											Add Address
 										</button>
 									</div>
-
-									<!--------------------------------------------------------modalllllllll-------------------------------->
-									<!-- Button trigger modal -->
-
-									</td>
+		
 
 									<br>
 
 								</div>
+							
+								<% if(typeof coupon !='undefined'){ %>
+								<div class="col-4">
+									<div class="dropdown">
+										<button class="dropbtn" id="couponBtn"> Available Coupons</button>
+										<div class="dropdown-content">
+											<% coupon.forEach((x)=>{ %>
+											<a id="coupon1"><%= x.code %></a>
+											<% }) %>
+											<div class="alert alert-warning" role="alert" id="alertDiv"
+												style="display: none;"></div>
+										</div>
+									</div>
+								</div>
+								<% } %>
+
+
+								
+		  
 
 								<!--///////////////////////////////////////////////////////////// coupon button ///////////////////////////////////////////////////////////////////-->
 
@@ -99,16 +114,12 @@
 							</h4>
 
 
-
-
 							<div class="flex-w flex-t  bor12  p-t-10 p-b-10 justify-content-between">
 								<div class="size-208 w-full-ssm">
 									<span class="mtext-101 cl2p-b-30 ">
 										product
 									</span>
 								</div>
-
-
 
 
 								<div class=" w-full-ssm">
@@ -138,9 +149,6 @@
 									<!--/ /////////////////////////////////////all hidden data of product ///////////////////////////////////////////////////////////////-->
 
 
-
-
-
 									<div class="w-full-ssm">
 										<span class="stext-110 cl2 ">
 											<%= x.prdtotalprice %>
@@ -158,10 +166,10 @@
 								<%}) %>
 
 
-
 									<div class="flex-w flex-t p-t-27 justify-content-between ">
-										<div >
-											<h2 class=" cl2" style="font-size:medium; font-weight: 700;" >Total amount</h2>
+										<div>
+											<h2 class=" cl2" style="font-size:medium; font-weight: 700;">Total amount
+											</h2>
 										</div>
 										<div class=" p-t-1">
 											<span class=" cl2 " name="TotalAmount">
@@ -173,10 +181,9 @@
 										</div>
 									</div>
 
-
 									<div class="flex-w flex-t p-t-15 ">
 										<div class="size-208">
-											<h2 class=" cl2" style="font-size:medium; font-weight: 700;" >Discount</h2>
+											<h2 class=" cl2" style="font-size:medium; font-weight: 700;">Discount</h2>
 										</div>
 										<div class="size-209 p-t-1">
 
@@ -189,21 +196,17 @@
 										</div>
 									</div>
 
-
 									<div class="flex-w flex-t p-t-15 p-b-33  ">
 										<div class="size-208">
-											<h2 class=" cl2" style="font-size:medium; font-weight: 700;" >New total</h2>
+											<h2 class=" cl2" style="font-size:medium; font-weight: 700;">New total</h2>
 										</div>
 										<div class="size-209 p-t-1">
-											<span id="newPrice" class=" cl2 m-l-150" name="TotalAmount"  >
+											<span id="newPrice" class=" cl2 m-l-150" name="TotalAmount">
 												<%=userData.carttotalprice %>
 											</span>
-											<input id="newPriceValue" name="discount" type="hidden"
-												value="">
+											<input id="newPriceValue" name="discount" type="hidden" value="">
 										</div>
 									</div>
-
-
 
 
 									<div class="cart-detail ">
@@ -239,8 +242,6 @@
 											</div>
 
 										</div>
-
-
 
 									</div>
 
@@ -340,9 +341,6 @@
 
 
 		</script>
-
-
-
 
 
 		<script>
@@ -530,3 +528,81 @@
 						});
 					});
 				</script>
+
+
+
+<!--- to copy coupon code -->
+
+<script>
+	var coupons = document.querySelectorAll(".dropdown-content a");
+
+	coupons.forEach(function (coupon) {
+		coupon.addEventListener("click", function () {
+			var couponText = coupon.innerHTML;
+			navigator.clipboard.writeText(couponText).then(function () {
+				console.log("Copied to clipboard: " + couponText);
+				$('#alertDiv').removeClass('alert-danger').addClass('alert-success').show().html("coupon code copied successfully");
+			}, function () {
+				console.error("Unable to copy text: " + couponText);
+			});
+		});
+	});
+
+	var couponBtn = document.getElementById("couponBtn");
+
+	couponBtn.addEventListener("click", function (event) {
+		event.preventDefault(); // prevents the default behavior of the button when it is clicked
+	});
+</script>
+
+
+<!---coupon showing button style -->
+<style>
+	.dropdown {
+		position: relative;
+		display: inline-block;
+	}
+
+	.dropdown button {
+		background-color: transparent;
+		color: #4CAF50;
+		padding: 6px 12px;
+		font-size: 14px;
+		border: 2px solid #4CAF50;
+		cursor: pointer;
+		border-radius: 4px;
+		transition: all 0.3s ease;
+	}
+
+	.dropdown button:hover {
+		background-color: #4CAF50;
+		color: white;
+		text-decoration: none;
+	}
+
+
+	.dropdown-content {
+		display: none;
+		position: absolute;
+		z-index: 1;
+		background-color: #68eb2c;
+		min-width: 160px;
+		box-shadow: 0px 8px 16px 0px rgba(0, 0, 0, 0.2);
+		border-radius: 4px;
+	}
+
+	.dropdown-content a {
+		color: black;
+		padding: 12px 16px;
+		text-decoration: none;
+		display: block;
+	}
+
+	.dropdown-content a:hover {
+		background-color: #0ad94f;
+	}
+
+	.dropdown:hover .dropdown-content {
+		display: block;
+	}
+</style>

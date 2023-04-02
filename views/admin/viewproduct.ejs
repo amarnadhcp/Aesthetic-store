@@ -1,0 +1,58 @@
+<%- include('../layouts/admin/header.ejs') %>
+
+  <!-- Layout wrapper -->
+  <div class="layout-wrapper layout-content-navbar">
+    <div class="layout-container">
+      <!-- Sidebar -->
+      <%- include('../layouts/admin/sidebar.ejs') %>
+        <!-- / Sidebar -->
+
+        <!-- Main content -->
+        <div class="layout-page">
+          <!-- Navbar -->
+          <%- include('../layouts/admin/navbar.ejs') %>
+            <!-- / Navbar -->
+
+            <!-- / Navbar -->
+            <div class="product-details row " style="padding-top: 150px;padding-left: 250px; "  >
+
+              <div class="product-thumbnails col-4">
+                <% for(var i=0; i<Data.image.length; i++) { %>
+                  <img src="/productimages/<%= Data.image[i] %>" alt="" class="thumbnail" width="80" height="80">
+                <% } %>
+              </div>
+            
+              <div class="product-info col-4 ">
+                <h1><%- Data.productname %></h1>
+             
+                <p><span>Description: </span> <span class="description"><%-Data.description %></span></p>
+                <p><span>Price: ₹</span> <span class="price"><%- Data.price %></span></p>
+                <p><span>Category:</span> <span class="category"><%- Data.category.category %></span></p>
+                <p><span>Quantity:</span> <span class="quantity"><%- Data.stock %></span></p>
+              </div>
+          
+            </div>
+            
+            
+
+            <script type="text/javascript">
+              document.addEventListener('DOMContentLoaded', function () {
+                console.log("Document ready");
+                var thumbnailImages = document.querySelectorAll('.thumbnail-image');
+                var bigImage = document.querySelector('.big-image');
+                thumbnailImages.forEach(function (image) {
+                  image.addEventListener('mouseover', function () {
+                    console.log("Hovering over thumbnail image");
+                    console.log("Thumbnail image source: " + image.getAttribute('src'));
+                    bigImage.setAttribute('src', image.getAttribute('src'));
+                    console.log("Big image source updated to: " + bigImage.getAttribute('src'));
+                  });
+                });
+              });
+            </script>
+        </div>
+        <!-- / Main content -->
+    </div>
+  </div>
+
+  <%- include('../layouts/admin/footer.ejs') %>

@@ -1,13 +1,30 @@
-  <%- include('../layouts/admin/header.ejs') %>
+<%- include('../layouts/admin/header.ejs') %>
+
+  <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.13.1/css/jquery.dataTables.css">
 
 
+  <script type="text/javascript" charset="utf8" src="https://code.jquery.com/jquery-3.5.1.js"></script>
+  <script type="text/javascript" charset="utf8"
+    src="https://cdn.datatables.net/1.13.4/js/jquery.dataTables.min.js"></script>
+  <script type="text/javascript" charset="utf8"
+    src="https://cdn.datatables.net/buttons/2.3.6/js/dataTables.buttons.min.js"></script>
+  <script type="text/javascript" charset="utf8"
+    src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.1.3/jszip.min.js"></script>
+  <script type="text/javascript" charset="utf8"
+    src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.53/pdfmake.min.js"></script>
+  <script type="text/javascript" charset="utf8"
+    src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.53/vfs_fonts.js"></script>
+  <script type="text/javascript" charset="utf8"
+    src="https://cdn.datatables.net/buttons/2.3.6/js/buttons.html5.min.js"></script>
+  <script type="text/javascript" charset="utf8"
+    src="https://cdn.datatables.net/buttons/2.3.6/js/buttons.print.min.js"></script>
 
 
-    <!-- Layout wrapper -->
-    <div class="layout-wrapper layout-content-navbar">
-      <div class="layout-container">
-        <!-- Menu -->
-        <%- include('../layouts/admin/sidebar.ejs') %>
+  <!-- Layout wrapper -->
+  <div class="layout-wrapper layout-content-navbar">
+    <div class="layout-container">
+      <!-- Menu -->
+      <%- include('../layouts/admin/sidebar.ejs') %>
 
         <!-- / Menu -->
 
@@ -17,62 +34,127 @@
 
           <%- include('../layouts/admin/navbar.ejs') %>
 
-          <br>
-          <div class="col-xxl">
-            <div class="card mb-4">
-              <div class="card-header d-flex align-items-center justify-content-between">
-                <h5 class="mb-0">Sales Report</h5>
-                <small class="text-muted float-end">View sales report</small>
-              </div>
-              <div class="card-header  ">
+            <br>
+            <div class="col-xxl">
+              <div class="card mb-4">
+                <div class="card-header d-flex align-items-center justify-content-between">
+                  <h5 class="mb-0">Sales Report</h5>
+                  <small class="text-muted float-end">View sales report</small>
+                </div>
+                <!-- <div class="card-header  ">
                 <button type="button" class="btn btn-primary float-right  " onclick="window.print()">Print Report</button>
-              </div>
-              <div class="card-body">
-                <table class="table" datatable id="reload" >
-                  <thead>
-                    <tr>
-                      <th>No</th>
-                      <th>Date</th>
-                      <th>Product Name</th>
-                      <th>Quantity</th>
-                      <th>Price</th>
-                      <th>Payment Method</th>
-                      <th>Total Amount</th>
-                    </tr>
-                  </thead>
-                  <tbody>
-                    <% sales.forEach((sale, i) => { %>
+              </div> -->
+                <div class="card-body">
+                  <table class="table" id="example">
+                    <thead>
                       <tr>
-                        <td><%= i+1 %></td>
-                        <td><%= sale.date %></td>
-                        <td>
-                          <% sale.product.forEach((product) => { %>
-                            <%= product.productId.name %> x <%= product.quantity %><br>
-                          <% }); %>
-                        </td>
-                        <td><%= sale.product.reduce((total, item) => total + item.quantity, 0) %></td>
-                        <td><%= sale.product.reduce((total, item) => total + item.sprice, 0) %></td>
-                        <td><%= sale.payementType %></td>
-                        <td><%= sale.total %></td>
+                        <th>No</th>
+                        <th>Date</th>
+                        <th>Product Name</th>
+                        <th>Quantity</th>
+                        <th>Price</th>
+                        <th>Payment Method</th>
+                        <th>Total Amount</th>
                       </tr>
-                    <% }); %>
-                    
-                    
-                  </tbody>
-                </table>
+                    </thead>
+                    <tbody>
+                      <% sales.forEach((sale, i)=> { %>
+                        <tr>
+                          <td>
+                            <%= i+1 %>
+                          </td>
+                          <td>
+                            <%= formatDate(sale.date) %>
+                          </td>
+                          <td>
+                            <% sale.product.forEach((product)=> { %>
+                              <%= product.productId.name %> x <%= product.quantity %><br>
+                                  <% }); %>
+                          </td>
+                          <td>
+                            <%= sale.product.reduce((total, item)=> total + item.quantity, 0) %>
+                          </td>
+                          <td>
+                            <%= sale.product.reduce((total, item)=> total + item.sprice, 0) %>
+                          </td>
+                          <td>
+                            <%= sale.payementType %>
+                          </td>
+                          <td>
+                            <%= sale.total %>
+                          </td>
+                        </tr>
+                        <% }); %>
+
+
+
+                          <!--date formating function-->
+                          <% function formatDate(date) { const d=new Date(date); const year=d.getFullYear(); const
+                            month=("0" + (d.getMonth() + 1)).slice(-2); const day=("0" + d.getDate()).slice(-2); return
+                            year + "-" + month + "-" + day; } %>
+
+
+
+
+                    </tbody>
+                  </table>
+                </div>
               </div>
             </div>
-          </div>
 
 
-
+            <!-- 
           <script>
             $(document).ready(function () {
               $('#reload').DataTable();
             });
-          </script>
+          </script> -->
+
+
+            <script>
+              $(document).ready(function () {
+                $('#example').DataTable({
+                  dom: 'Bfrtip',
+                  buttons: [
+                    'copy', 'print', 'excel', 'csv', 'pdf'
+                  ]
+                });
+              });
+
+            </script>
 
 
 
-       
-    <%- include('../layouts/admin/footer.ejs') %>
+            <style>
+              .dt-button.buttons-excel,
+              .dt-button.buttons-csv,
+              .dt-button.buttons-pdf {
+                background-color: #4CAF50;
+                /* Change background color */
+                color: white;
+                /* Change text color */
+                border-radius: 5px;
+                /* Add rounded corners */
+                border: none;
+                /* Remove border */
+                margin-right: 10px;
+                /* Add some spacing between buttons */
+                padding: 8px 16px;
+                /* Increase padding */
+              }
+            </style>
+
+
+            <style>
+              .dt-button.buttons-copy,
+              .dt-button.buttons-print {
+                background-color: #ec4503;
+                color: white;
+                border-radius: 5px;
+                border: none;
+                margin-right: 10px;
+                padding: 8px 16px;
+              }
+
+              /* Add specific styles for PDF button here */
+            </style>

@@ -8,9 +8,9 @@
         <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.13.4/css/jquery.dataTables.min.css">
 
 
-<!------ data search ------->
+        <!------ data search ------->
 
-<!-- table search pagination-->
+        <!-- table search pagination-->
 
 
 
@@ -23,7 +23,7 @@
             <div class="row ">
                 <div class="col ">
                     <h1 class="fw-bold">Orders</h1>
-                    <hr>
+                    <!-- <hr> -->
                 </div>
             </div>
 
@@ -33,37 +33,66 @@
                     <table class="table table-hover border rounded shadow" id="reloadDiv">
                         <thead class="bg-light">
                             <tr>
-                                <th scope="col">#</th>
-                                <th scope="col">Product Name</th>
+                                <th scope="col">No</th>
+                                <th scope="col">Image</th>
+                                <th scope="col">Product</th>
                                 <th scope="col">Date</th>
                                 <th scope="col">Delivery Address</th>
                                 <th scope="col">Total Amount</th>
                                 <th scope="col">Payment type</th>
                                 <th scope="col">Status</th>
                                 <th scope="col">Action</th>
+                                <!-- <th scope="col">more</th> -->
+
+
+
                                 <!-- <th scope="col">Detail</th> -->
                             </tr>
                         </thead>
                         <tbody>
                             <% orderData.forEach((order, index)=> { %>
                                 <tr>
-                                    <th scope="row">
+                                    <th scope="row ">
                                         <%= index + 1 %>
                                     </th>
+
+
+
+
                                     <td>
                                         <% order.product.forEach((product)=> { %>
-                                            <p class="fw-normal mb-1">
+                                            <a href="/views/<%= product.productId._id%>">
+
+                                            <div class="size-208 w-full-ssm m-l-2 mb-2">
+                                                <img src="/productImages/<%= product.productId.image[0] %>"
+                                                    style="width: 30px; height: 40px;  " alt="Product Image">
+                                            </div>
+                                        </a>
+                                            <% }) %>
+
+                                    </td>
+
+                                    <td>
+                                        <% order.product.forEach((product)=> { %>
+                                            <p class="fw-normal  mb-1">
                                                 <%= product.productId.name %>
-                                            </p>
+                                            </p><br>
+
                                             <% }) %>
                                     </td>
+
+
+
+
                                     <td>
                                         <%= order.date.toLocaleString('en-us', { day: '2-digit' , month: '2-digit' ,
                                             year: '2-digit' }) %>
                                     </td>
                                     <td>
                                         <%= order.deliveryAddress %>
+
                                     </td>
+
                                     <td>
                                         <%= order.total %>
                                     </td>
@@ -89,8 +118,12 @@
                                                 <%} %>
 
 
-                                                    <!-- <td> <svg xmlns="http://www.w3.org/2000/svg" width="30" height="30" fill="currentColor" class="bi bi-arrow-right-square-fill" viewBox="0 0 16 16">  <path d="M0 14a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V2a2 2 0 0 0-2-2H2a2 2 0 0 0-2 2v12zm4.5-6.5h5.793L8.146 5.354a.5.5 0 1 1 .708-.708l3 3a.5.5 0 0 1 0 .708l-3 3a.5.5 0 0 1-.708-.708L10.293 8.5H4.5a.5.5 0 0 1 0-1z"/> </svg></td>  -->
+
                                 </tr>
+
+
+
+
                                 <% }) %>
                         </tbody>
                     </table>
@@ -110,7 +143,7 @@
             integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl"
             crossorigin="anonymous"></script>
 
-
+    
 
 
         <script>
@@ -152,7 +185,7 @@
                     method: "post",
                     success: (response) => {
                         $('#reloadDiv').load("/vieworders #reloadDiv")
-                        
+
                     }
                 })
             }
@@ -160,7 +193,7 @@
 
 
         <script>
-            $(document).ready(function() {
+            $(document).ready(function () {
                 $('#reloadDiv').DataTable();
             });
         </script>

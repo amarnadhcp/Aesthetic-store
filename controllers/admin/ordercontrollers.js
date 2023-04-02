@@ -3,7 +3,6 @@ const productmodel = require("../../models/productmodel")
 const usermodel = require("../../models/usermodel")
 
 
-
 const userordershow = async (req,res)=>{
     try {
 
@@ -56,10 +55,19 @@ const statusUpdation = async (req, res) => {
 
 
 
-
+const orderdetails = async (req,res)=>{
+    try {
+        const orderid = req.params.id
+        const orderdata = await ordermodel.findOne({orderId:orderid}).populate("product.productId")
+        res.render("orderdetails",{orderData:orderdata})
+    } catch (error) {
+        console.log(error.message);
+    }
+}
 
 
 module.exports={
     userordershow,
-    statusUpdation
+    statusUpdation,
+    orderdetails
 }

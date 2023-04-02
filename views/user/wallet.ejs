@@ -32,7 +32,7 @@
                         <thead class="bg-light">
                             <tr>
                                 <th scope="col">NO</th>
-                          
+
                                 <th scope="col">Date</th>
                                 <th scope="col">payment type</th>
                                 <th scope="col">Total Amount</th>
@@ -42,38 +42,38 @@
                             </tr>
                         </thead>
                         <tbody>
-                            
+
                             <% orderData.forEach((order, index)=> { %>
-                               
+
                                 <% if(order.status=="Returned" && order.status=="cancelled" ){%>
-                                <tr>
-                                    <th scope="row">
-                                        <%= index + 1 %>
-                                    </th>
-                                    <!-- <td>
+                                    <tr>
+                                        <th scope="row">
+                                            <%= index + 1 %>
+                                        </th>
+                                        <!-- <td>
                                         <% order.product.forEach((product)=> { %>
                                             <p class="fw-normal mb-1">
                                                 <%= product.productId.name %>
                                             </p>
                                             <% }) %>
                                     </td> -->
-                                    <td>
-                                        <%= order.date.toLocaleString('en-us', { day: '2-digit' , month: '2-digit' ,
-                                            year: '2-digit' }) %>
-                                    </td>
-                                    <td>
-                                        <%= order.payementType %>
-                                    </td>
-                                    <td>
-                                        <%= order.total %>
-                                    </td>
-                                    <td>
-                                        <%= order.status %>
-                                    </td>
+                                        <td>
+                                            <%= order.date.toLocaleString('en-us', { day: '2-digit' , month: '2-digit' ,
+                                                year: '2-digit' }) %>
+                                        </td>
+                                        <td>
+                                            <%= order.payementType %>
+                                        </td>
+                                        <td>
+                                            <%= order.total %>
+                                        </td>
+                                        <td>
+                                            <%= order.status %>
+                                        </td>
 
-                             <% } %>
-                       
-                           <% }) %>
+                                        <% } %>
+
+                                            <% }) %>
                         </tbody>
                     </table>
                 </div>
@@ -96,10 +96,10 @@
 
 
 
-        
 
 
-       
+
+
 
 
             <script>

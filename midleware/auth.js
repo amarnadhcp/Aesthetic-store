@@ -1,35 +1,30 @@
 
-
-
-const isLogin = async (req,res,next)=>{
-
-    try{
-        if(req.session.admin_id){
-            
-        }else{
-           return res.redirect('/admin')
+const isLogin = async (req, res, next) => {
+    try {
+        if (req.session.admin_id) {
+        } else {
+            return res.redirect('/admin')
         }
         next();
-    }catch(error){
+    } catch (error) {
         console.log(error.message);
     }
 }
 
 
-const isLogout = async (req,res,next)=>{
-
-    try{
-        if(req.session.admin_id){
-           return res.redirect('/admin/dashboard')
+const isLogout = async (req, res, next) => {
+    try {
+        if (req.session.admin_id) {
+            return res.redirect('/admin/dashboard')
         }
         next();
-    }catch(error){
+    } catch (error) {
         console.log(error.message);
     }
 }
 
 
-module.exports={
+module.exports = {
 
     isLogin,
     isLogout

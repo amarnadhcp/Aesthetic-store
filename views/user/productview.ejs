@@ -1,12 +1,6 @@
 <%- include('../layouts/user/header.ejs') %>
 	<%- include('../layouts/user/navbar.ejs') %>
 
-
-
-
-
-
-
 		<!-- Product Detail -->
 		<section class="sec-product-detail bg0 p-t-65 p-b-60 m-t-100 ">
 			<div class="container">
@@ -18,7 +12,7 @@
 								<div class="wrap-slick3-arrows flex-sb-m flex-w"></div>
 
 								<div class="slick3 gallery-lb">
-									<div class="item-slick3" data-thumb="/ProductImages/<%=Data.image[0]%>">
+									<div class="item-slick3" data-thumb="/productImages/<%=Data.image[0]%>">
 										<div class="wrap-pic-w pos-relative">
 											<img class="big_img" src="/productImages/<%=Data.image[0]%>"
 												alt="IMG-PRODUCT">
@@ -87,14 +81,27 @@
 											Add to cart
 										</button>
 
-										<div class=" dis-block icon-header-item cl3 hov-cl1 trans-04 p-l-22 p-r-11 js-addwish-detail tooltip100"
-											onclick="addtowishlist('<%= Data._id %>')" data-tooltip="Add to Wishlist">
 
-											<i class="zmdi zmdi-favorite"> </i>
-											</a>
+										<% if(typeof userData !="undefined" ){%>
+											<div class=" dis-block icon-header-item cl3 hov-cl1 trans-04 p-l-22 p-r-11 js-addwish-detail tooltip100 js-addwish-b2"
+												onclick="addtowishlist('<%= Data._id %>')"
+												data-tooltip="Add to Wishlist "
+												class="btn-addwish-b2 dis-block pos-relative js-addwish-b2">
+												<i class="zmdi zmdi-favorite"> </i>
+												</a>
+											</div>
+											<% }else{ %>
 
-										</div>
+												<a href="/loginpage">
+													<span style="display: inline-block;">
+														<div
+															class="dis-block icon-header-item cl3 hov-cl1 trans-04 p-l-22 p-r-11 ">
+															<i class="zmdi zmdi-favorite"></i>
+														</div>
+													</span>
+												</a>
 
+												<%} %>
 
 									</div>
 
@@ -117,30 +124,41 @@
 		</section>
 
 
-
-
-
 		<script>
 			function addtowishlist(proid) {
-
 				$.ajax({
 					url: '/addtowishlist',
 					data: {
 						productId: proid
 					},
-
 					method: "post",
-
-					success: (response) => {
-
-						console.log(response)
+					success: function (response) {
+						if (response.success) {
+							// Product was successfully added to the wishlist
+							swal({
+								title: "Success",
+								text: "product added to whilist",
+								icon: "success"
+							});
+						} else {
+							// Product is already in the wishlist
+							swal({
+								title: "Error",
+								text: "alredy in whislist",
+								icon: "error"
+							});
+						}
+					},
+					error: function (xhr, status, error) {
+						swal({
+							title: "Error",
+							text: "An error occurred while adding the product to the wishlist",
+							icon: "error"
+						});
 					}
-
-				})
+				});
 			}
 		</script>
-
-
 
 
 		<script>
@@ -154,7 +172,7 @@
 					method: 'post',
 
 					success: (response) => {
-						if (response.success) {
+						if (response.done) {
 							$('#reloadDiv').load('/wishlist #reloadDiv')
 							// product added to cart
 							Swal.fire({
@@ -163,7 +181,7 @@
 								showConfirmButton: false,
 								timer: 1500,
 							});
-						} else {
+						} else if (response.exist) {
 							// product already in cart
 							Swal.fire({
 								icon: "info",
@@ -171,6 +189,8 @@
 								showConfirmButton: false,
 								timer: 1500,
 							});
+						} else if (response.nouser) {
+							window.location = "/loginpage"
 						}
 					},
 					error: (xhr, status, error) => {

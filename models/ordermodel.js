@@ -19,7 +19,7 @@ const orderschema = mongoose.Schema({
     },
     date: {
         type: Date,
-        default: Date.now()
+        
     },
     product: [{
         productId: {
@@ -45,7 +45,8 @@ const orderschema = mongoose.Schema({
         type:Number
     },
     discount:{
-        type:Number
+        type:Number,
+        default:0
     },
     payementType:{
         type:String,

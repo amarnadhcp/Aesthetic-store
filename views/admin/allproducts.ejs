@@ -3,11 +3,11 @@
 
 
 
-    <!-- Layout wrapper -->
-    <div class="layout-wrapper layout-content-navbar">
-      <div class="layout-container">
-        <!-- Menu -->
-        <%- include('../layouts/admin/sidebar.ejs') %>
+  <!-- Layout wrapper -->
+  <div class="layout-wrapper layout-content-navbar">
+    <div class="layout-container">
+      <!-- Menu -->
+      <%- include('../layouts/admin/sidebar.ejs') %>
 
         <!-- / Menu -->
 
@@ -18,84 +18,111 @@
           <%- include('../layouts/admin/navbar.ejs') %>
 
 
-<br>
-<br>
- 
-<!-- <br>
+            <br>
+            <br>
+
+            <!-- <br>
            <div>
               <a href="/admin/allproducts/addcategory">
                    <button type="button" class="btn btn -xl btn-primary mb-3">ADD CATEGORY</button>
                </a>
            </div>
          -->
-            
-           
-    
-          <div class="card">
-            <h5 class="card-header">All products</h5>
-            <div class="table-responsive text-nowrap">
-              <table class="table">
-                <thead>
-                  <tr>
-                    <th>No</th>
-                    <th>Products</th>
-                    <th>Category</th>
-                    <th>Description</th>
-                    <th>Stock</th>
-                    <th>Price</th>
-                    <th>Image</th>
-                    <th>Action</th>
-                   
-                  </tr>
-                </thead>
-               
-                <tbody class="table-border-bottom-0">
-                    
-               
-                      <% refdata.forEach((x,index)=>{%>
-                    <tr>
-                      <th scope="row"><%= index+1 %> </th>
-                      <td><%= x.name %>  </td>
-                      <td><%= x.category.category%>  </td>
-                      <td><%= x.description %>  </td>
-                      <td><%= x.stock %>  </td>
-                      <td><%= x.price %>  </td>
-                      <td>  <img src="/productImages/<%= x.image[0] %> " alt="" style="width: 50px; height: 50px;" >   </td>
-                      
-                      
 
-                      <td> 
-                        <div class="dropdown">
-                          <button type="button" class="btn p-0 dropdown-toggle hide-arrow" data-bs-toggle="dropdown">
-                            <i class="bx bx-dots-vertical-rounded"></i>
-                          </button>
-                          <div class="dropdown-menu">
-                            <a class="dropdown-item" href="/admin/editproduct/<%= x._id%> "
-                              ><i class="bx bx-edit-alt me-1"></i> Edit</a
-                            >
-                            <!-- <a class="dropdown-item" href="/admin/deleteproduct/<%= x._id%> "
+
+
+            <div class="card">
+              <h5 class="card-header">All products</h5>
+              <div class="table-responsive text-nowrap">
+                <table class="table">
+                  <thead>
+                    <tr>
+                      <th>No</th>
+                      <th>Image</th>
+                      <th>Products</th>
+                      <th>Category</th>
+                      <th>Stock</th>
+                      <th>Price</th>
+                      <th>status</th>
+                      <th>Action</th>
+                      <th>view</th>
+
+
+                    </tr>
+                  </thead>
+
+                  <tbody class="table-border-bottom-0">
+
+
+                    <% refdata.forEach((x,index)=>{%>
+                      <tr>
+                        <th scope="row">
+                          <%= index+1 %>
+                        </th>
+                        <td> <img src="/productImages/<%= x.image[0] %> " alt="" style="width: 50px; height: 50px;">
+                        </td>
+                        <td>
+                          <%= x.name %>
+                        </td>
+                        <td>
+                          <%= x.category.category%>
+                        </td>
+                        <td>
+                          <%= x.stock %>
+                        </td>
+                        <td>
+                          <%= x.price %>
+                        </td>
+
+                        <%if(x.status){%>
+                          <td style="color: green;">List</td>
+                          <% }else{%>
+                            <td style="color: red;">Unlist</td>
+                            <% }%>
+
+
+                              <td>
+                                <div class="dropdown">
+                                  <button type="button" class="btn p-0 dropdown-toggle hide-arrow"
+                                    data-bs-toggle="dropdown">
+                                    <i class="bx bx-dots-vertical-rounded"></i>
+                                  </button>
+                                  <div class="dropdown-menu">
+                                    <a class="dropdown-item" href="/admin/editproduct/<%= x._id%> "><i
+                                        class="bx bx-edit-alt me-1"></i> Edit</a>
+                                    <!-- <a class="dropdown-item" href="/admin/deleteproduct/<%= x._id%> "
                               ><i class="bx bx-trash me-1"></i> Delete</a
                             > -->
-                          </div>
-                        </div>
+                                    <% if(x.status){%>
+                                      <a class="dropdown-item" href="/admin/statusupdation/<%=x._id%> "><i
+                                          class="bx bx-edit-alt me-1"></i>unlist</a>
+                                      <% }else{ %>
+                                        <a class="dropdown-item" href="/admin/statusupdation/<%= x._id%> "><i
+                                            class="bx bx-edit-alt me-1"></i>list</a>
+                                        <% } %>
+                                  </div>
+                                </div>
+                              </td>
 
+                              <td> <a href="/admin/adminproductdetails/<%= x._id%>"> <i class='bx bx-show'></i> </a>
+                              </td>
 
-                      
-                      </td>
-                    </tr> 
+                      </tr>
 
-                 <% }) %>
-                
-                </tbody>
-              </table>
+                      <% }) %>
+
+                  </tbody>
+                </table>
+              </div>
             </div>
-          </div>
 
-          <div>
-            <% if(typeof message!=="undefined"){%>
-              <h1 style ="font-size:16px;color:rgb(73, 34, 227);"><%=message %></h1>
-              <%}%>
-          </div>
+            <div>
+              <% if(typeof message!=="undefined" ){%>
+                <h1 style="font-size:16px;color:rgb(73, 34, 227);">
+                  <%=message %>
+                </h1>
+                           <%}%>
+            </div>
 
 
-    <%- include('../layouts/admin/footer.ejs') %>
+            <%- include('../layouts/admin/footer.ejs') %>

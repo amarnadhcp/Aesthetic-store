@@ -33,17 +33,18 @@
             <!-- text-nowrap ===== to make table down scroller -->
 
             <div class="card">
-              <h5 class="card-header">All Banners</h5>
+              <h5 class="card-header">All Orders</h5>
               <div class="table-responsive ">
                 <table class="table">
                   <thead>
                     <tr>
                       <th>No</th>
+                      <th>date</th>
                       <th>Order Id</th>
                       <th>Address</th>
                       <th>payment </th>
                       <th>status</th>
-                      <!-- <th>Details</th> -->
+                      <th>Details</th>
                     </tr>
                   </thead>
 
@@ -58,6 +59,10 @@
                         </th>
 
                         <th scope="row">
+                          <%= x.date.toLocaleString('en-us', { day: '2-digit' , month: '2-digit' , year: '2-digit' }) %>
+                        </th>
+
+                        <th scope="row">
                           <%= x.orderId %>
                         </th>
 
@@ -69,90 +74,96 @@
                           <%= x.payementType%>
                         </th>
 
-                        <% if (x.status=="delivered" || x.status=="cancelled" || x.status == "Returned" ||  x.status == "Payment failed" ) { %>
+                        <% if (x.status=="delivered" || x.status=="cancelled" || x.status=="Returned" ||
+                          x.status=="Payment failed" ) { %>
                           <th>
-                              <%= x.status %>
+                            <%= x.status %>
                           </th>
-                      <% } else if (x.status=="confirmed") { %>
-                          <th>
+                          <% } else if (x.status=="confirmed" ) { %>
+                            <th>
                               <div class="dropdown">
-                                  <button type="button"  class="btn p-10 dropdown-toggle hide-arrow btn-outline-danger text-red "
-                                          data-bs-toggle="dropdown">
-                                      <i>
-                                          <%= x.status %>
-                                      </i>
-                                  </button>
-                                  <div class="dropdown-menu ">
-                                      <div class="dropdown-item" onclick="updateStatus('<%= x.orderId %>', 'processing')">
-                                          <i class="me-1"></i> Processing
-                                      </div>
-                                      <a class="dropdown-item" onclick="updateStatus('<%= x.orderId %>', 'shipped')">
-                                          <i class="me-1"></i> Shipped
-                                      </a>
-                                      <a class="dropdown-item" onclick="updateStatus('<%= x.orderId%>', 'delivered')">
-                                          <i class="me-1"></i> Delivered
-                                      </a>
-                                  </div>
-                              </div>
-                          </th>
-                      <% } else if (x.status=="processing") { %>
-                          <th>
-                              <div class="dropdown">
-                                  <button type="button"   class="btn p-10 dropdown-toggle hide-arrow btn-outline-danger text-red "
-                                          data-bs-toggle="dropdown">
-                                      <i>
-                                          <%= x.status %>
-                                      </i>
-                                  </button>
-                                  <div class="dropdown-menu">
-                                      <a class="dropdown-item" onclick="updateStatus('<%= x.orderId %>', 'shipped')">
-                                          <i class="me-1"></i> Shipped
-                                      </a>
-                                      <a class="dropdown-item" onclick="updateStatus('<%= x.orderId %>', 'delivered')">
-                                          <i class="me-1"></i> Delivered
-                                      </a>
-                                  </div>
-                              </div>
-                          </th>
-                      <% } else if (x.status=="shipped") { %>
-                          <th>
-                              <div class="dropdown">
-                                  <button type="button"  class="btn p-10 dropdown-toggle hide-arrow  btn-outline-danger text-red"
-                                          data-bs-toggle="dropdown">
-                                      <i>
-                                          <%= x.status %>
-                                      </i>
-                                  </button>
-                                  <div class="dropdown-menu">
-                                      <a class="dropdown-item" onclick="updateStatus('<%= x.orderId %>', 'delivered')">
-                                          <i class="me-1"></i> Delivered
-                                      </a>
-                                  </div>
-                              </div>
-                          </th>
-                       <% } else if (x.status=="Return pending") { %>
-                        <th>
-                            <div class="dropdown">
-                                <button type="button"  class="btn p-0 dropdown-toggle hide-arrow btn-outline-danger text-red"
-                                        data-bs-toggle="dropdown">
-                                    <i>
-                                        <%= x.status %>
-                                    </i>
+                                <button type="button"
+                                  class="btn p-10 dropdown-toggle hide-arrow btn-outline-danger text-red "
+                                  data-bs-toggle="dropdown">
+                                  <i>
+                                    <%= x.status %>
+                                  </i>
                                 </button>
-                                <div class="dropdown-menu">
-                                    <a class="dropdown-item" onclick="updateStatus('<%= x.orderId %>', 'Returned')">
-                                        <i class="me-1"></i> Approve
-                                    </a>
+                                <div class="dropdown-menu ">
+                                  <div class="dropdown-item" onclick="updateStatus('<%= x.orderId %>', 'processing')">
+                                    <i class="me-1"></i> Processing
+                                  </div>
+                                  <a class="dropdown-item" onclick="updateStatus('<%= x.orderId %>', 'shipped')">
+                                    <i class="me-1"></i> Shipped
+                                  </a>
+                                  <a class="dropdown-item" onclick="updateStatus('<%= x.orderId%>', 'delivered')">
+                                    <i class="me-1"></i> Delivered
+                                  </a>
                                 </div>
-                            </div>
-                        </th>
-                    <% } %> 
-                      
+                              </div>
+                            </th>
+                            <% } else if (x.status=="processing" ) { %>
+                              <th>
+                                <div class="dropdown">
+                                  <button type="button"
+                                    class="btn p-10 dropdown-toggle hide-arrow btn-outline-danger text-red "
+                                    data-bs-toggle="dropdown">
+                                    <i>
+                                      <%= x.status %>
+                                    </i>
+                                  </button>
+                                  <div class="dropdown-menu">
+                                    <a class="dropdown-item" onclick="updateStatus('<%= x.orderId %>', 'shipped')">
+                                      <i class="me-1"></i> Shipped
+                                    </a>
+                                    <a class="dropdown-item" onclick="updateStatus('<%= x.orderId %>', 'delivered')">
+                                      <i class="me-1"></i> Delivered
+                                    </a>
+                                  </div>
+                                </div>
+                              </th>
+                              <% } else if (x.status=="shipped" ) { %>
+                                <th>
+                                  <div class="dropdown">
+                                    <button type="button"
+                                      class="btn p-10 dropdown-toggle hide-arrow  btn-outline-danger text-red"
+                                      data-bs-toggle="dropdown">
+                                      <i>
+                                        <%= x.status %>
+                                      </i>
+                                    </button>
+                                    <div class="dropdown-menu">
+                                      <a class="dropdown-item" onclick="updateStatus('<%= x.orderId %>', 'delivered')">
+                                        <i class="me-1"></i> Delivered
+                                      </a>
+                                    </div>
+                                  </div>
+                                </th>
+                                <% } else if (x.status=="Return pending" ) { %>
+                                  <th>
+                                    <div class="dropdown">
+                                      <button type="button"
+                                        class="btn p-0 dropdown-toggle hide-arrow btn-outline-danger text-red"
+                                        data-bs-toggle="dropdown">
+                                        <i>
+                                          <%= x.status %>
+                                        </i>
+                                      </button>
+                                      <div class="dropdown-menu">
+                                        <a class="dropdown-item" onclick="updateStatus('<%= x.orderId %>', 'Returned')">
+                                          <i class="me-1"></i> Approve
+                                        </a>
+                                      </div>
+                                    </div>
+                                  </th>
+                                  <% } %>
 
-                   
 
 
-                                <!-- <th scope="row"> details</th> -->
+
+
+                                    <th scope="row"> <a href="/admin/orderdetails/<%= x.orderId %>"> <i
+                                          class='bx bx-show'></i></a> </th>
 
                       </tr>
                     </tbody>
@@ -169,13 +180,13 @@
                            <%}%>
             </div>
 
-            
+
 
 
             <script>
-              function  updateStatus(orderId, newstatus){
+              function updateStatus(orderId, newstatus) {
 
-                $.ajax ({
+                $.ajax({
                   url: "/admin/statusupdation",
                   data: {
                     orderid: orderId,
@@ -184,16 +195,16 @@
                   method: "post",
 
                   success: (response) => {
-                    if(response.success){
+                    if (response.success) {
                       console.log("it worked");
                     }
-                
-                    location.href="/admin/orders"
+
+                    location.href = "/admin/orders"
                   }
                 })
               }
-        
-              </script>
+
+            </script>
 
 
 
@@ -205,6 +216,3 @@
                           <button type="button" class="btn btn-danger" ><a  class="text-white" href="/admin/deletebanner">delete</a></button>
                      </td> 
                       </td> -->
-
-
-

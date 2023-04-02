@@ -16,14 +16,12 @@ const client = require("twilio")(accountsid, authtoken);
 
 
 
-
 const loadhomepage = async (req, res) => {
 
   try {
 
-    const productdata = await productschema.find({}).populate('category')
+    const productdata = await productschema.find({ status: true }).populate('category')
     const newbannerdata = await bannermodel.find({})
-
 
     if (productdata) {
       if (req.session.user) {
@@ -35,17 +33,13 @@ const loadhomepage = async (req, res) => {
 
       }
     }
-
-
   } catch (error) {
     console.log(error.message);
   }
 }
 
 
-
 const loadloginpage = async (req, res) => {
-
   try {
     res.render('userlogin')
 
@@ -55,7 +49,6 @@ const loadloginpage = async (req, res) => {
 }
 
 const loaduserpage = async (req, res) => {
-
   try {
     res.render('usersignup')
   } catch (error) {
@@ -68,12 +61,12 @@ const loaduserpage = async (req, res) => {
 const signupverification = async (req, res, next) => {
 
   req.session.user = req.body
-  form_username = req.body.username
-  const found = await usermodel.findOne({ username: form_username })
+  form_email = req.body.email
+  const found = await usermodel.findOne({ email: form_email })
 
   if (found) {
 
-    res.render('usersignup', { message: "This username already exists, try another name" })
+    res.render('usersignup', { message: "This email already exists, try another email" })
   }
   else if (req.body.firstname == "" || req.body.lastname == "" || req.body.username == "" || req.body.phonenumber == "" || req.body.email == "" || req.body.password == "") {
 
@@ -139,7 +132,6 @@ const verifyOtp = async (req, res, next) => {
 }
 
 
-
 //login verfiction of user 
 const loginverification = async (req, res) => {
   try {
@@ -157,7 +149,6 @@ const loginverification = async (req, res) => {
       return res.render("userlogin", { message: "You have been blocked" });
     }
 
-
     const passwordMatch = await bcrypt.compare(req.body.password, user.password);
     if (!passwordMatch) {
       return res.render("userlogin", { message: "Invalid email or password" });
@@ -170,9 +161,6 @@ const loginverification = async (req, res) => {
     return res.render("userlogin", { message: "An error occurred" });
   }
 };
-
-
-
 
 
 
@@ -196,8 +184,10 @@ const logout = async (req, res) => {
 const viewproduct = async (req, res) => {
 
   try {
+    console.log("function ======================");
     if (req.session.user) {
       const id = req.params.id
+      console.log(id+"=========iiiiiiiiiiiiiiiiiidddddddddd");
       const userdata = req.session.user
       const data = await productschema.findOne({ _id: id })
       res.render("productview", { Data: data, userData: userdata })
@@ -218,10 +208,10 @@ const viewproduct = async (req, res) => {
 const allproduct = async (req, res) => {
   try {
 
-    const productdata = await productschema.find({}).populate("category")
+    const productdata = await productschema.find({ status: true }).populate("category")
 
     if (req.session.user) {
-      
+
       const userdata = req.session.user
       res.render("allproducts", { userData: userdata, productData: productdata })
     } else {
@@ -236,29 +226,29 @@ const allproduct = async (req, res) => {
 
 
 
-const search = async(req,res)=>{
+const search = async (req, res) => {
   try {
 
-    if (req.session.user){
+    if (req.session.user) {
       const input = req.body.searched
-      const result = new RegExp(input,'i')
-      const productdata = await productschema.find({name:result}).populate("category")
-      const userdata = await usermodel.findOne({_id:req.session.user._id})
+      const result = new RegExp(input, 'i')
+      const productdata = await productschema.find({ name: result, status: true }).populate("category")
+      const userdata = await usermodel.findOne({ _id: req.session.user._id })
       res.render("allproducts", { userData: userdata, productData: productdata })
 
-    }else{
+    } else {
 
       const input = req.body.searched
-      const result = new RegExp(input,'i')
-      const productdata = await productschema.find({name:result}).populate("category")
-      res.render("allproducts", {  productData: productdata })
+      const result = new RegExp(input, 'i')
+      const productdata = await productschema.find({ name: result }).populate("category")
+      res.render("allproducts", { productData: productdata })
 
     }
-    
-    
+
+
   } catch (error) {
     console.log(error.message);
-    
+
   }
 }
 
@@ -268,8 +258,8 @@ const search = async(req,res)=>{
 const categoryWiseFilter = async (req, res) => {
   try {
     const category = req.params.id
-    const filterddata = await productschema.find({ category: category })
-    const categoryname = await categorymodel.findOne({_id:category})
+    const filterddata = await productschema.find({ category: category, status: true })
+    const categoryname = await categorymodel.findOne({ _id: category })
 
     if (req.session.user) {
       const userdata = req.session.user
@@ -277,7 +267,7 @@ const categoryWiseFilter = async (req, res) => {
 
     } else {
 
-      res.render('categoryproduct', { FilterdData: filterddata,categoryname })
+      res.render('categoryproduct', { FilterdData: filterddata, categoryname })
 
     }
 
@@ -286,11 +276,6 @@ const categoryWiseFilter = async (req, res) => {
 
   }
 }
-
-
-
-
-
 
 
 // profile showing of user
@@ -305,8 +290,6 @@ const profileshow = async (req, res) => {
   }
 
 }
-
-
 
 
 const alladdress = async (req, res) => {
@@ -389,8 +372,6 @@ const editaddress = async (req, res) => {
 };
 
 
-
-
 const vieworders = async (req, res) => {
   try {
     id = req.session.user._id
@@ -401,11 +382,7 @@ const vieworders = async (req, res) => {
   } catch (error) {
     console.log(error.message);
   }
-
-
 }
-
-
 
 
 const addAddress = async (req, res) => {
@@ -448,9 +425,9 @@ const walletHistory = async (req, res) => {
 
   try {
     const id = req.session.user._id
-    const  userdata = await usermodel.findOne({_id:id})
-    const orderdata = await ordermodel.find({userId : id}).sort({date:-1})
-    res.render('wallet',{orderData:orderdata , userData : userdata})
+    const userdata = await usermodel.findOne({ _id: id })
+    const orderdata = await ordermodel.find({ userId: id }).sort({ date: -1 })
+    res.render('wallet', { orderData: orderdata, userData: userdata })
 
   } catch (error) {
     console.log(error.message);
@@ -460,9 +437,33 @@ const walletHistory = async (req, res) => {
 }
 
 
+const changepassword = async (req, res) => {
+  try {
+    const data = req.body
+    const oldpassword = data.oldpassword
+    const userdata = await usermodel.findOne({ _id: data.userId })
 
+    if (userdata) {
+      const compare = await bcrypt.compare(oldpassword, userdata.password)
+      if (compare) {
+        if (data.newPassword === data.confirmPassword) {
+          const newPassword = await bcrypt.hash(data.confirmPassword, 10)
+          const update = await usermodel.updateOne({ _id: data.userId }, { password: newPassword })
+          res.json({ success: true })
 
+        } else {
+          res.json({ different: true })
+        }
+      } else {
+        res.json({ notmached: true })
 
+      }
+    }
+
+  } catch (error) {
+    console.log(error.message)
+  }
+}
 
 
 module.exports = {
@@ -483,7 +484,8 @@ module.exports = {
   editaddress,
   vieworders,
   addAddress,
-  walletHistory
+  walletHistory,
+  changepassword
 
 
 

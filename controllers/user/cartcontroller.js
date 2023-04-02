@@ -59,12 +59,8 @@ const deletecart = async(req,res)=>{
    const id = req.session.user._id
    const proid = req.body.productId
 
-
-
    const found = await usermodel.updateOne({_id:id},{$pull:{cart:{product:proid}}})
   
-  
-
    if(found){
     res.json({success:true})
 
@@ -80,15 +76,6 @@ const deletecart = async(req,res)=>{
   }
   
 }
-
-
-
-
-
-
-
-
-
 
 
 module.exports={

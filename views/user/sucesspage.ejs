@@ -1,71 +1,74 @@
 <%- include('../layouts/user/header.ejs') %>
-<%- include('../layouts/user/navbar.ejs') %>
+    <%- include('../layouts/user/navbar.ejs') %>
 
-<!-- Breadcrumb -->
-<div class="container m-t-60">
-    <div class="bread-crumb flex-w p-l-25 p-r-15 p-t-30 p-lr-0-lg">
-        <a href="/" class="stext-109 cl8 hov-cl1 trans-04">
-            Home
-            <i class="fa fa-angle-right m-l-9 m-r-10" aria-hidden="true"></i>
-        </a>
+        <!-- Breadcrumb -->
+        <div class="container m-t-60">
+            <div class="bread-crumb flex-w p-l-25 p-r-15 p-t-30 p-lr-0-lg">
+                <a href="/" class="stext-109 cl8 hov-cl1 trans-04">
+                    Home
+                    <i class="fa fa-angle-right m-l-9 m-r-10" aria-hidden="true"></i>
+                </a>
 
-        <span class="stext-109 cl4">
-            Order Completed
-        </span>
-    </div>
-</div>
-
-<!-- Content -->
-<section class="bg0 p-t-75 p-b-120">
-    <div class="container">
-        <div class="row">
-            <div class="col-md-12 col-lg-12 p-b-50">
-                <div class="p-r-20 p-r-0-lg">
-                    <h4 class="mtext-105 cl2 txt-center p-b-30">
-                        Thank you for your order!
-                    </h4>
-
-                    <div class="row justify-content-center  p-b-30">
-                        <div class="col-md-6 text-right">
-                            <p class="stext-115 cl6 p-b-5 ">
-                                Order Id:
-                            </p>
-                            <p class="stext-115 cl6 p-b-5">
-                                Total Amount:
-                            </p>
-                            <p class="stext-115 cl6 p-b-5">
-                                payment method:
-                            </p>
-                        </div>
-
-                        <div class="col-md-6 text-left">
-                            <h5 class="stext-116 cl2 m-t-2">
-                                
-                                <%=orderData.orderId%>                         
-                            </h5>
-                            <h5 class="stext-116 cl2 m-t-14 ">
-                                
-                                <%=orderData.total%>
-                            </h5>
-                            <h5 class="stext-116 cl2 m-t-8 ">
-                                <%=orderData.payementType%>
-                            </h5>
-                        </div>
-
-                       
-
-                    </div>
-
-                    <p class="stext-115 cl6 p-b-5 txt-center" >
-                        Your order has been placed successfully. We will notify you when it is shipped. Thank you for shopping with us.
-                    </p>
-                    <br><br>
-
-                    <a  href="/vieworders"><button class="flex-c-m stext-101 cl0 size-101 bg1 bor1 hov-btn1  trans-04 m-lr-auto "  >Go back</button></a>
-                </div>
+                <span class="stext-109 cl4">
+                    Order Completed
+                </span>
             </div>
         </div>
-    </div>
-</section>
 
-<%- include('../layouts/user/footer.ejs') %>
+        <!-- Content -->
+        <section class="bg0 p-t-75 p-b-120">
+            <div class="container">
+                <div class="row">
+                    <div class="col-md-12 col-lg-12 p-b-50">
+                        <div class="p-r-20 p-r-0-lg">
+                            <h4 class="mtext-105 cl2 txt-center p-b-30">
+                                Thank you for your order!
+                            </h4>
+
+                            <div class="row justify-content-center  p-b-30">
+                                <div class="col-md-6 text-right">
+                                    <p class="stext-115 cl6 p-b-5 ">
+                                        Order Id:
+                                    </p>
+                                    <p class="stext-115 cl6 p-b-5">
+                                        Total Amount:
+                                    </p>
+                                    <p class="stext-115 cl6 p-b-5">
+                                        payment method:
+                                    </p>
+                                </div>
+
+                                <div class="col-md-6 text-left">
+                                    <h5 class="stext-116 cl2 m-t-2">
+
+                                        <%=orderData.orderId%>
+                                    </h5>
+                                    <h5 class="stext-116 cl2 m-t-14 ">
+
+                                        <%=orderData.total%>
+                                    </h5>
+                                    <h5 class="stext-116 cl2 m-t-8 ">
+                                        <%=orderData.payementType%>
+                                    </h5>
+                                </div>
+
+
+
+                            </div>
+
+                            <p class="stext-115 cl6 p-b-5 txt-center">
+                                Your order has been placed successfully. We will notify you when it is shipped. Thank
+                                you for shopping with us.
+                            </p>
+                            <br><br>
+
+                            <a href="/vieworders"><button
+                                    class="flex-c-m stext-101 cl0 size-101 bg1 bor1 hov-btn1  trans-04 m-lr-auto ">Go
+                                    back</button></a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <%- include('../layouts/user/footer.ejs') %>

@@ -5,206 +5,207 @@
 
 
 
-    <% if( userData.wishlist.length == 0){%>
+        <% if( userData.wishlist.length==0){%>
 
-         <!-- breadcrumb -->
-         <div class="container  m-t-60 ">
-            <div class="bread-crumb flex-w p-l-25 p-r-15 p-t-30 p-lr-0-lg">
-                <a href="index.html" class="stext-109 cl8 hov-cl1 trans-04">
-                    Home
-                    <i class="fa fa-angle-right m-l-9 m-r-10" aria-hidden="true"></i>
-                </a>
+            <!-- breadcrumb -->
+            <div class="container  m-t-60 ">
+                <div class="bread-crumb flex-w p-l-25 p-r-15 p-t-30 p-lr-0-lg">
+                    <a href="index.html" class="stext-109 cl8 hov-cl1 trans-04">
+                        Home
+                        <i class="fa fa-angle-right m-l-9 m-r-10" aria-hidden="true"></i>
+                    </a>
 
-                <span class="stext-109 cl4">
-                    whislist
-                </span>
+                    <span class="stext-109 cl4">
+                        whislist
+                    </span>
+                </div>
             </div>
-        </div>
 
-        <div class="container m-t-60  text-center ">
-            <img src="https://i.pinimg.com/originals/f6/e4/64/f6e464230662e7fa4c6a4afb92631aed.png" alt="">
-        </div>
-
-
-
-       <%}else{ %> 
-
-        <!-- breadcrumb -->
-        <div class="container  m-t-60 ">
-            <div class="bread-crumb flex-w p-l-25 p-r-15 p-t-30 p-lr-0-lg">
-                <a href="index.html" class="stext-109 cl8 hov-cl1 trans-04">
-                    Home
-                    <i class="fa fa-angle-right m-l-9 m-r-10" aria-hidden="true"></i>
-                </a>
-
-                <span class="stext-109 cl4">
-                    whislist
-                </span>
+            <div class="container m-t-60  text-center ">
+                <img src="https://i.pinimg.com/originals/f6/e4/64/f6e464230662e7fa4c6a4afb92631aed.png" alt="">
             </div>
-        </div>
-
-
-        <!-- Shoping Cart -->
-        <form class="bg0 p-t-10 p-b-85">
-            <div class="container">
-                <div class="row">
-                    <div class="col-lg-10 col-xl-7 m-lr-auto m-b-50">
-                        <div class="m-l-25 m-r--38 m-lr-0-xl">
-                            <div class="wrap-table-shopping-cart" id="reloadDiv">
-                                <table class="table-shopping-cart">
-                                    <tr class="table_head">
-                                        <th class="column-1">Product</th>
-                                        <th class="column-2"></th>
-                                        <th class="column-3">Price</th>
-                                        <!-- <th class="column-4">Quantity</th> -->
-                                        <!-- <th class="column-5">Actions</th> -->
-                                    </tr>
-
-                                    <% userData.wishlist.forEach((x,index)=>{%>
 
 
 
-                                        <tr class="table_row">
-                                            <td class="column-1">
-                                                <div class="how-itemcart1">
-                                                    <img src="/ProductImages/<%= x.product.image[0] %>" alt="IMG">
-                                                </div>
-                                            </td>
-                                            <td class="column-2">
-                                                <%= x.product.name %>
-                                            </td>
-                                            <td class="column-3">
-                                                <%= x.product.price %>
-                                            </td>
-                                            <td class="column-4">
+            <%}else{ %>
 
-                                                <!--   <div class="flex-c-m stext-10 cl2 size-119 bg8 bor13 hov-btn3 p-lr-15 trans-04 pointer m-tb-10 " style="width: 1px;">
+                <!-- breadcrumb -->
+                <div class="container  m-t-60 ">
+                    <div class="bread-crumb flex-w p-l-25 p-r-15 p-t-30 p-lr-0-lg">
+                        <a href="index.html" class="stext-109 cl8 hov-cl1 trans-04">
+                            Home
+                            <i class="fa fa-angle-right m-l-9 m-r-10" aria-hidden="true"></i>
+                        </a>
+
+                        <span class="stext-109 cl4">
+                            whislist
+                        </span>
+                    </div>
+                </div>
+
+
+                <!-- Shoping Cart -->
+                <form class="bg0 p-t-10 p-b-85">
+                    <div class="container">
+                        <div class="row">
+                            <div class="col-lg-10 col-xl-7 m-lr-auto m-b-50">
+                                <div class="m-l-25 m-r--38 m-lr-0-xl">
+                                    <div class="wrap-table-shopping-cart" id="reloadDiv">
+                                        <table class="table-shopping-cart">
+                                            <tr class="table_head">
+                                                <th class="column-1">Product</th>
+                                                <th class="column-2"></th>
+                                                <th class="column-3">Price</th>
+                                                <!-- <th class="column-4">Quantity</th> -->
+                                                <!-- <th class="column-5">Actions</th> -->
+                                            </tr>
+
+                                            <% userData.wishlist.forEach((x,index)=>{%>
+
+
+
+                                                <tr class="table_row">
+                                                    <td class="column-1">
+                                                        <div class="how-itemcart1">
+                                                            <img src="/ProductImages/<%= x.product.image[0] %>"
+                                                                alt="IMG">
+                                                        </div>
+                                                    </td>
+                                                    <td class="column-2">
+                                                        <%= x.product.name %>
+                                                    </td>
+                                                    <td class="column-3">
+                                                        <%= x.product.price %>
+                                                    </td>
+                                                    <td class="column-4">
+
+                                                        <!--   <div class="flex-c-m stext-10 cl2 size-119 bg8 bor13 hov-btn3 p-lr-15 trans-04 pointer m-tb-10 " style="width: 1px;">
                                         <div class="flex-w flex-sb-m bor15 p-t-18 p-b-15 p-lr-40 p-lr-15-sm">
                                     Add to Cart
                                 </div>
                             </div> -->
 
-                                                <button
-                                                    class="flex-c-m stext-10 cl2 size-119 bg8 bor13 hov-btn3 p-lr-15 trans-04 pointer m-tb-10"
-                                                    style="width: 1px;"
-                                                    onclick="addToCart('<%= x.product._id %>','<%=x.product.price %>')"
-                                                    type="button">
-                                                    Add to Cart
-                                                </button>
+                                                        <button
+                                                            class="flex-c-m stext-10 cl2 size-119 bg8 bor13 hov-btn3 p-lr-15 trans-04 pointer m-tb-10"
+                                                            style="width: 1px;"
+                                                            onclick="addToCart('<%= x.product._id %>','<%=x.product.price %>')"
+                                                            type="button">
+                                                            Add to Cart
+                                                        </button>
 
-                                            <td class="column-5">
+                                                    <td class="column-5">
 
-                                                <button onclick="deleteWish('<%= x.product._id %>')" type="button"><i
-                                                        class="zmdi zmdi-delete"></i></button>
-                                            </td>
+                                                        <button onclick="deleteWish('<%= x.product._id %>')"
+                                                            type="button"><i class="zmdi zmdi-delete"></i></button>
+                                                    </td>
 
-                                            <% })%>
+                                                    <% })%>
 
-                                                </td>
-                                                <!-- <td class="column-5">$ 36.00</td> -->
-                                        </tr>
+                                                        </td>
+                                                        <!-- <td class="column-5">$ 36.00</td> -->
+                                                </tr>
 
-                                   <% } %>
-                                </table>
+                                                <% } %>
+                                        </table>
+                                    </div>
+
+
+
+                                </div>
                             </div>
-
 
 
                         </div>
                     </div>
 
-                
-                </div>
-            </div>
+                    <script>
+                        function deleteWish(proid) {
 
-            <script>
-                function deleteWish(proid) {
+                            Swal.fire({
+                                title: 'Are you sure?',
+                                text: "You wan't to delete!",
+                                icon: 'warning',
+                                showCancelButton: true,
+                                confirmButtonColor: '#3085d6',
+                                cancelButtonColor: '#d33',
+                                confirmButtonText: 'yes, delete!'
+                            }).then((result) => {
+                                if (result.isConfirmed) {
+                                    $.ajax({
+                                        url: "/deletewish",
+                                        data: {
+                                            productId: proid
+                                        },
+                                        method: 'post',
+                                        success: (response) => {
+                                            console.log("waoring")
 
-                    Swal.fire({
-                        title: 'Are you sure?',
-                        text: "You wan't to delete!",
-                        icon: 'warning',
-                        showCancelButton: true,
-                        confirmButtonColor: '#3085d6',
-                        cancelButtonColor: '#d33',
-                        confirmButtonText: 'yes, delete!'
-                    }).then((result) => {
-                        if (result.isConfirmed) {
-                            $.ajax({
-                                url: "/deletewish",
-                                data: {
-                                    productId: proid
-                                },
-                                method: 'post',
-                                success: (response) => {
-                                    console.log("waoring")
+                                            $('#reloadDiv').load('/wishlist #reloadDiv')
+                                            console.log(response);
+                                            Swal.fire({
+                                                title: 'deleted!',
+                                                text: 'Your deleted',
+                                                icon: 'success',
+                                                showConfirmButton: false
+                                            })
+                                            //  setTimeout(()=>{
+                                            //     location.reload()
+                                            //  },1000);
 
-                                    $('#reloadDiv').load('/wishlist #reloadDiv')
-                                    console.log(response);
-                                    Swal.fire({
-                                        title: 'deleted!',
-                                        text: 'Your deleted',
-                                        icon: 'success',
-                                        showConfirmButton: false
+                                        }
+
                                     })
-                                    //  setTimeout(()=>{
-                                    //     location.reload()
-                                    //  },1000);
-
                                 }
-
                             })
                         }
-                    })
-                }
 
-            </script>
+                    </script>
 
 
 
 
 
 
-            <script>
-                function addToCart(proid, price) {
-                    $.ajax({
-                        url: "/addtocart",
-                        data: {
-                            productId: proid,
-                            price: price
-                        },
-                        method: 'post',
+                    <script>
+                        function addToCart(proid, price) {
+                            $.ajax({
+                                url: "/addtocart",
+                                data: {
+                                    productId: proid,
+                                    price: price
+                                },
+                                method: 'post',
 
-                        success: (response) => {
-                            if (response.success) {
-                                $('#reloadDiv').load('/wishlist #reloadDiv')
-                                // product added to cart
-                                Swal.fire({
-                                    icon: "success",
-                                    title: "Product added to cart",
-                                    showConfirmButton: false,
-                                    timer: 1500,
-                                });
-                            } else {
-                                // product already in cart
-                                Swal.fire({
-                                    icon: "info",
-                                    title: "Product already in cart",
-                                    showConfirmButton: false,
-                                    timer: 1500,
-                                });
-                            }
-                        },
-                        error: (xhr, status, error) => {
-                            console.log(error);
-                        },
-                    });
-                }
+                                success: (response) => {
+                                    if (response.success) {
+                                        $('#reloadDiv').load('/wishlist #reloadDiv')
+                                        // product added to cart
+                                        Swal.fire({
+                                            icon: "success",
+                                            title: "Product added to cart",
+                                            showConfirmButton: false,
+                                            timer: 1500,
+                                        });
+                                    } else {
+                                        // product already in cart
+                                        Swal.fire({
+                                            icon: "info",
+                                            title: "Product already in cart",
+                                            showConfirmButton: false,
+                                            timer: 1500,
+                                        });
+                                    }
+                                },
+                                error: (xhr, status, error) => {
+                                    console.log(error);
+                                },
+                            });
+                        }
 
-            </script>
-
-
+                    </script>
 
 
 
-            <%- include('../layouts/user/footer.ejs') %>
+
+
+                    <%- include('../layouts/user/footer.ejs') %>
