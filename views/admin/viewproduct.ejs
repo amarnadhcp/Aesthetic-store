@@ -14,15 +14,15 @@
             <!-- / Navbar -->
 
             <!-- / Navbar -->
-            <div class="product-details row " style="padding-top: 150px;padding-left: 250px; "  >
+            <div class="product-details row " style="padding-top: 150px; padding-left: 20px; "  >
 
-              <div class="product-thumbnails col-4">
+              <div class="product-thumbnails col-4  " style="display: flex;">
                 <% for(var i=0; i<Data.image.length; i++) { %>
-                  <img src="/productimages/<%= Data.image[i] %>" alt="" class="thumbnail" width="80" height="80">
+                  <img src="/productImages/<%= Data.image[i] %>" alt="" class="thumbnail" width="150" height="150">
                 <% } %>
               </div>
             
-              <div class="product-info col-4 ">
+              <div class="product-info col-4 "style="padding-left: 100px; ">
                 <h1><%- Data.productname %></h1>
              
                 <p><span>Description: </span> <span class="description"><%-Data.description %></span></p>

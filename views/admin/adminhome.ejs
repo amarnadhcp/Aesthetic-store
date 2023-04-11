@@ -308,6 +308,7 @@
  <!-- /////////////////////////////////////////////////////// modallll poopup///////////////////////////////////////////////////////////////////////////////////////////////////////////////////// -->          
           <!-- Modal -->
 <!-- Modal -->
+<form  method="post" action="/admin/salesReport">
 <div class="modal fade" id="salesReportModal" tabindex="-1" aria-labelledby="salesReportModalLabel" aria-hidden="true">
   <div class="modal-dialog">
     <div class="modal-content">
@@ -316,7 +317,6 @@
         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
       </div>
       <div class="modal-body">
-        <form id="salesReportForm">
           <div class="mb-3">
             <label for="startDate" class="form-label">From date</label>
             <input type="date" class="form-control" id="startDate" name="startDate" >
@@ -325,47 +325,22 @@
             <label for="endDate" class="form-label">To date</label>
             <input type="date" class="form-control" id="endDate" name="endDate" >
           </div>
-        </form>
+        
       </div>
       <div class="modal-footer">
         <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-        <button type="submit" form="salesReportForm" class="btn btn-primary" id="submitSalesReport">Generate Report</button>
+        <button type="submit"  class="btn btn-primary" >Generate Report</button>
       </div>
     </div>
   </div>
 </div>
+</form>
+
 
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 
 
-<script>
-  $(function() {
-    $('#submitSalesReport').click(function(e) {
-      e.preventDefault();
-      var formData = $('#salesReportForm').serialize();
-      $.ajax({
-        method: 'post',
-        url: '/admin/salesReport',
-        data: formData,  
-        success: function(response) {
-          if(response.success) {
-            // Get sales data passed from the backend
-            var salesData = response.sales;
-            console.log(typeof salesData);
-            console.log( salesData);
-            
-            // Encode salesData as a query parameter
-            var salesDataQuery = encodeURIComponent(JSON.stringify(salesData));
-            
-            // Redirect to the print report page with salesData as a query parameter
-            location.href="/admin/printReport/" + salesDataQuery;
-          }
-        }     
-      });
-   
-    });
-  });
-</script>
+
 
 
     <%- include('../layouts/admin/footer.ejs') %>

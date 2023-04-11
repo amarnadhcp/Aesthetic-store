@@ -46,7 +46,6 @@ adminRoute.get('/logout',admincontroller.logout)
 
  ///dashboard
  adminRoute.post("/salesReport",auth.isLogin,admincontroller.SalesReport)
- adminRoute.get("/printReport/:sales",auth.isLogin,admincontroller.getReport)
 
 adminRoute.get("/category",auth.isLogin,categorycontroller.loadcategory)
 adminRoute.get("/addcategory",auth.isLogin,categorycontroller.addcategory)

@@ -64,7 +64,9 @@
                             <%= i+1 %>
                           </td>
                           <td>
-                            <%= formatDate(sale.date) %>
+                            <% var saleDate = new Date(sale.date); %>
+                            <%= (saleDate.getMonth() + 1) + '/' + saleDate.getDate() + '/' + saleDate.getFullYear() %>
+                            
                           </td>
                           <td>
                             <% sale.product.forEach((product)=> { %>
@@ -85,15 +87,6 @@
                           </td>
                         </tr>
                         <% }); %>
-
-
-
-                          <!--date formating function-->
-                          <% function formatDate(date) { const d=new Date(date); const year=d.getFullYear(); const
-                            month=("0" + (d.getMonth() + 1)).slice(-2); const day=("0" + d.getDate()).slice(-2); return
-                            year + "-" + month + "-" + day; } %>
-
-
 
 
                     </tbody>

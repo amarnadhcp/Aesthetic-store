@@ -124,6 +124,7 @@ const loaddashboard = async (req, res) => {
 //// sales repot priniting
 const SalesReport = async (req, res) => {
     try {
+        console.log("i am here");
         const from = new Date(req.body.startDate);
         const to = new Date(req.body.endDate);
         if (req.body.startDate === "" || req.body.endDate === "") {
@@ -132,7 +133,9 @@ const SalesReport = async (req, res) => {
             const sales = await ordermodel.find({ status: "delivered", date: { $gte: new Date(req.body.startDate), $lte: new Date(req.body.endDate) } })
                 .populate("product.productId")
             console.log("sale qty   :", sales.length);
-            res.json({ success: true, sales })
+           
+
+            res.render("salesReport",{sales})
         }
 
     } catch (error) {
@@ -142,17 +145,7 @@ const SalesReport = async (req, res) => {
 };
 
 
-const getReport = async (req, res) => {
-    try {
-        const str = req.params.sales
-        const sales = JSON.parse(`${str}`); // convert the string to an array of objects using JSON.parse()
 
-        res.render("salesReport", { sales })
-    } catch (error) {
-        console.log(error.message);
-
-    }
-}
 
 
 const updatedata = async (req, res) => {
@@ -199,7 +192,6 @@ module.exports = {
     loginverification,
     loaddashboard,
     SalesReport,
-    getReport,
     updatedata,
     usersdata,
     logout,
